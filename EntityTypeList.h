@@ -24,7 +24,6 @@
 #include <QHash>
 #include <scl_cf.h>
 extern void SchemaInit( class Registry & );
-//#include <STEPfile.h>
 #include <sdai.h>
 #include <STEPattribute.h>
 #include <SdaiAUTOMOTIVE_DESIGN.h>
@@ -43,10 +42,7 @@ public slots:
     void select( const EntityDescriptor *ed);
 
 private:
-//    bool strict;
     Registry  registry;
-//    InstMgr   instance_list;
-//    STEPfile  sfile;
     QHash <const void*, QListWidgetItem*> m_EntityDescriptorToItem;
     QIcon m_EntityIcon;
 };
