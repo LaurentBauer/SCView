@@ -27,6 +27,9 @@
 **
 **************************************************************************/
 
+// Orginal file comes from an old version of Qt creator. Don't remember which one. Something around V1.2
+// Small modifications should have been tagged with "// LOLO"
+
 #ifndef MANHATTANSTYLE_H
 #define MANHATTANSTYLE_H
 
@@ -93,7 +96,7 @@ public:
 //    static QPalette sidebarFontPalette(const QPalette &original);
 
     // This is our color table, all colors derive from baseColor
-    static QColor baseColor(){ return QColor(0x7579a8); } // Qt : 79629c vroom : a99bd0
+    static QColor baseColor(){ return QColor(0x7579a8); } // Qt : 79629c // LOLO : 7579a8 or a99bd0
     static QColor panelTextColor() { return Qt::white; }
     static QColor highlightColor();
     static QColor shadowColor();

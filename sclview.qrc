@@ -1,9 +1,10 @@
 <RCC>
     <qresource prefix="/">
-        <file alias="attribute">icones/attribute.png</file>
-        <file alias="type">icones/type.png</file>
+        <file alias="Type">icones/attribute.png</file>
+        <file alias="Entity">icones/type.png</file>
         <file alias="close">icones/close.png</file>
         <file alias="listView">icones/ListView.png</file>
         <file alias="treeView">icones/TreeView.png</file>
+        <file alias="Schema">icones/Schema.png</file>
     </qresource>
 </RCC>

@@ -23,12 +23,13 @@
 #include <QDockWidget>
 
 class QToolBar;
+class EntityTypeTree;
 
 class SCLDockWidget : public QDockWidget
 {
     Q_OBJECT
 public:
-    explicit SCLDockWidget(QWidget *parent = 0);
+    explicit SCLDockWidget(EntityTypeTree * tree, QWidget *parent = 0);
     
 signals:
     

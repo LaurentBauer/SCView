@@ -20,31 +20,32 @@
 #ifndef ENTITYTYPELIST_H
 #define ENTITYTYPELIST_H
 
-#include <QListWidget>
+#include <QTreeWidget>
 #include <QHash>
-#include <scl_cf.h>
 extern void SchemaInit( class Registry & );
-#include <sdai.h>
-#include <STEPattribute.h>
 #include <SdaiAUTOMOTIVE_DESIGN.h>
 
-class EntityTypeList : public QListWidget
+// EntityTypeList : actually is the EntityDescriptorList... should be renamed
+class EntityTypeTree : public QTreeWidget
 {
     Q_OBJECT
 public:
-    explicit EntityTypeList(QWidget *parent = 0);
+    explicit EntityTypeTree(QWidget *parent = 0);
     
 signals:
-    void entityChanged(const EntityDescriptor *);
+    void selectedEntityChanged(const EntityDescriptor *);
+    void selectedTypeChanged(const TypeDescriptor *);
 
 public slots:
-    void findEntity();
+    void findSelection();
     void select( const EntityDescriptor *ed);
+    void select( const TypeDescriptor *td);
 
 private:
-    Registry  registry;
-    QHash <const void*, QListWidgetItem*> m_EntityDescriptorToItem;
+    Registry  m_Registry;
+    QHash <const void*, QTreeWidgetItem*> m_EntityDescriptorToItem;
     QIcon m_EntityIcon;
+    QIcon m_TypeIcon;
 };
 
 #endif // ENTITYTYPELIST_H

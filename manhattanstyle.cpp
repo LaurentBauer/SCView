@@ -27,6 +27,10 @@
 **
 **************************************************************************/
 
+// Orginal file comes from an old version of Qt creator. Don't remember which one. Something around V1.2
+// Small modifications should have been tagged with "// LOLO"
+
+
 #include "manhattanstyle.h"
 #include "styleanimator.h"
 

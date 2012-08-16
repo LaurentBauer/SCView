@@ -28,9 +28,17 @@ SchemaModel::SchemaModel()
     , instance_list()
     , sfile( registry, instance_list, "", strict )
 {
+    /*
     const EntityDescriptor * entityDescriptor;
     while ( (entityDescriptor= registry.NextEntity() ) )
     {
         cout << entityDescriptor->Name() << endl;
     }
+*/
+    const TypeDescriptor * typeDescriptor;
+    while ( (typeDescriptor= registry.NextType() ) )
+    {
+        cout << typeDescriptor->Name() << endl;
+    }
+
 }

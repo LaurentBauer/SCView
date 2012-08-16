@@ -23,7 +23,7 @@
 #include <QMainWindow>
 
 class SCLDockWidget;
-class EntityTypeList;
+class EntityTypeTree;
 class EntityDescriptorWidget;
 class ExpressGView;
 class ExpressGScene;
@@ -44,8 +44,8 @@ private:
     void buildView();
 private:
     Ui::MainWindow *ui;
+    EntityTypeTree * m_EntityTypeTree;
     SCLDockWidget * m_SCLDockWidget;
-    EntityTypeList * m_EntityTypeList;
     //EntityDescriptorWidget * m_EntityDescriptorWidget;
     ExpressGView * m_ExpressGView;
 };
