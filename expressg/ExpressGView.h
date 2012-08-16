@@ -38,9 +38,14 @@ protected:
 
 signals:
     void entityDescriptorDoubleClicked( const EntityDescriptor * );
+    void typeDescriptorDoubleClicked( const TypeDescriptor * );
 
 public slots:
     void setEntityDescriptor (const EntityDescriptor * ed);
+    void setTypeDescriptor (const TypeDescriptor * td);
+
+private:
+    void reframe();
 
 private:
     ExpressGScene m_Scene;

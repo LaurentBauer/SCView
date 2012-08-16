@@ -26,10 +26,13 @@
 class TypeItem : public QGraphicsRectItem
 {
 public:
-    TypeItem(const TypeDescriptor * td , QGraphicsItem *parent);
-    void setOptional(bool isOptional);
+    TypeItem(const TypeDescriptor * typeDescriptor , QGraphicsItem *parent=0);
+    inline const TypeDescriptor * typeDescriptor() {return m_TypeDesriptor; }
+
 private:
+    const TypeDescriptor * m_TypeDesriptor;
     QGraphicsRectItem * m_RightSymbol;
+
 };
 
 #endif // TYPEITEM_H

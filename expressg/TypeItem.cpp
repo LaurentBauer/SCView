@@ -22,13 +22,60 @@
 #include <QBrush>
 #include <QPen>
 
-TypeItem::TypeItem(const TypeDescriptor *td, QGraphicsItem *parent)
+TypeItem::TypeItem(const TypeDescriptor *typeDescriptor, QGraphicsItem *parent)
     : QGraphicsRectItem(parent)
+    , m_TypeDesriptor(typeDescriptor)
     , m_RightSymbol(new QGraphicsRectItem(this))
 {
+    int childType = typeDescriptor->Type();
 
+    bool isBasicType=(typeDescriptor->ReferentType()==0);
+    bool isSelectType = (childType==sdaiSELECT);
+    bool isEnumType = (childType==sdaiENUMERATION);
 
+    bool drawLeftRect=isSelectType;
+    bool drawRightRect=(!isSelectType) && isBasicType || isEnumType;
+    bool isDashed=(!isBasicType) || isSelectType || isEnumType;
 
+    setFlag(QGraphicsItem::ItemIsSelectable, true);
+    qreal xLeft=0.0;
+    QPen pen(Qt::white);
+    if (isDashed)
+    {
+        pen.setStyle(Qt::CustomDashLine);
+        QVector<qreal> dashes;
+        dashes << 6 << 4;
+        pen.setDashPattern(dashes);
+    }
+    setPen(pen);
+    setBrush(Qt::transparent);
+
+    if (drawLeftRect) xLeft = 20.0;
+
+    QGraphicsTextItem * textItem = new QGraphicsTextItem (typeDescriptor->Name(), this);
+
+    qreal xRight = xLeft+15;
+    textItem->setPos(xRight,10.0);
+    textItem->setDefaultTextColor(Qt::white);
+    qreal textWidth = textItem->boundingRect().width();
+    if (textWidth<85.0)  textWidth=85.0;
+    xRight+=xLeft+textWidth+15.0; // 15 = margin after text
+
+    if (drawLeftRect)
+    {
+        QGraphicsLineItem * leftRectLine = new QGraphicsLineItem(xLeft, 0.0, xLeft, 40.0, this);
+        leftRectLine->setPen(pen);
+    }
+
+    if (drawRightRect)
+    {
+        QGraphicsLineItem * rightRectLine = new QGraphicsLineItem(xRight, 0.0, xRight, 40.0, this);
+        rightRectLine->setPen(pen);
+        xRight+=20.0;
+    }
+
+    setRect( 0.0, 0.0,xRight,40.0);
+/*
     setBrush(QColor(Qt::white));
 
     std::string str;
@@ -42,25 +89,6 @@ TypeItem::TypeItem(const TypeDescriptor *td, QGraphicsItem *parent)
     if (rectWidth<85.0)  rectWidth=85.0;
     setRect( 0.0, 0.0,rectWidth+45.0,40.0);
     m_RightSymbol->setRect(rectWidth+30.0, 0.0, 15.0, 40.0);
+    */
 }
 
-
-void TypeItem::setOptional(bool isOptional)
-{
-    if (isOptional)
-    {
-        QPen pen(Qt::CustomDashLine);
-        QVector<qreal> dashes;
-        dashes << 6 << 4;
-        pen.setDashPattern(dashes);
-        pen.setWidth(2);
-        setPen(pen);
-        m_RightSymbol->setPen(pen);
-    }
-    else
-    {
-        QPen pen(Qt::SolidLine);
-        setPen(pen);
-        m_RightSymbol->setPen(pen);
-    }
-}

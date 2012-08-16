@@ -110,6 +110,9 @@ EntityItem::EntityItem(const EntityDescriptor *entityDescriptor, QGraphicsItem *
             if (attrIsAggregate)
                 childDescriptor = attrDescriptor->AggrElemTypeDescriptor();   // pointed type inside the aggregate
 
+            TypeItem * item = new TypeItem(childDescriptor, this);
+/*
+
             QString name;
             name = QString (childDescriptor->Name());
             int childType = childDescriptor->Type();
@@ -123,6 +126,7 @@ EntityItem::EntityItem(const EntityDescriptor *entityDescriptor, QGraphicsItem *
             bool isDashed=(!isBasicType) || isSelectType || isEnumType;
 
             ExpressgRectItem * item = new ExpressgRectItem (name, drawLeftRect, drawRightRect, isDashed, this);
+            */
             item->setPos( childX, childY );
             vLineHeight = childY;
             childY+=50.0;

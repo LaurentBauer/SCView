@@ -22,6 +22,7 @@
 
 #include <QGraphicsScene>
 class EntityDescriptor;
+class TypeDescriptor;
 
 class ExpressGScene : public QGraphicsScene
 {
@@ -30,12 +31,14 @@ public:
     explicit ExpressGScene(QObject *parent = 0);
     
     QGraphicsItem* setEntityDescriptor(const EntityDescriptor *ed);
+    QGraphicsItem* setTypeDescriptor(const TypeDescriptor *td);
 
 protected:
     virtual void mouseDoubleClickEvent ( QGraphicsSceneMouseEvent * mouseEvent );
     // virtual mousePressEvent(QGraphicsSceneMouseEvent *event);
 signals:
     void entityDescriptorDoubleClicked( const EntityDescriptor * );
+    void typeDescriptorDoubleClicked( const TypeDescriptor * );
 public slots:
     
 private:

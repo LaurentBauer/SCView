@@ -19,6 +19,7 @@
 
 #include "ExpressGScene.h"
 #include "EntityItem.h"
+#include "TypeItem.h"
 
 #include <iostream>
 using namespace std;
@@ -30,11 +31,20 @@ ExpressGScene::ExpressGScene(QObject *parent) :
 
 QGraphicsItem *ExpressGScene::setEntityDescriptor(const EntityDescriptor *ed)
 {
-    this->clear();
+    clear();
     EntityItem * edItem = new EntityItem(ed);
     edItem->setPos(0.0,0.0);
     addItem(edItem);
     return edItem;
+}
+
+QGraphicsItem *ExpressGScene::setTypeDescriptor(const TypeDescriptor *td)
+{
+    clear();
+    TypeItem * typeItem = new TypeItem(td);
+    typeItem->setPos(0.0,0.0);
+    addItem(typeItem);
+    return typeItem;
 }
 
 void ExpressGScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *mouseEvent)
@@ -42,13 +52,12 @@ void ExpressGScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *mouseEvent)
     if (!selectedItems().isEmpty())
     {
         QGraphicsItem * selItem = selectedItems().first();
-        EntityItem * entityItem = qgraphicsitem_cast <EntityItem *> (selItem);
-        if (entityItem!=0)
-        {
-            cout << " ExpressGScene::mouseDoubleClickEvent" << endl;
+        EntityItem * entityItem;
+        TypeItem * typeItem;
+        if ( (entityItem = qgraphicsitem_cast <EntityItem *> (selItem) ) )
             emit entityDescriptorDoubleClicked( entityItem->entityDescriptor() );
-        }
-
+        else if ( ( typeItem = qgraphicsitem_cast <TypeItem *> (selItem) ) )
+            emit typeDescriptorDoubleClicked( typeItem->typeDescriptor() );
     }
 }
 
