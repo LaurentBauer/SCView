@@ -39,6 +39,7 @@ SOURCES += main.cpp\
     expressg/TypeItem.cpp \
     expressg/LinkItem.cpp \
     expressg/ExpressgRectItem.cpp
+#    TypeDescriptorListWidget.cpp
 
 HEADERS  += MainWindow.h \
     SchemaModel.h \
@@ -53,6 +54,7 @@ HEADERS  += MainWindow.h \
     expressg/TypeItem.h \
     expressg/LinkItem.h \
     expressg/ExpressgRectItem.h
+#    TypeDescriptorListWidget.h
 
 FORMS    += MainWindow.ui \
     EntityDescriptorWidget.ui

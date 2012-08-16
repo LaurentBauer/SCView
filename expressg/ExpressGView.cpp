@@ -37,14 +37,24 @@ ExpressGView::ExpressGView(QWidget *parent)
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     connect (&m_Scene, SIGNAL( entityDescriptorDoubleClicked( const EntityDescriptor * ) ), this, SIGNAL(entityDescriptorDoubleClicked(const EntityDescriptor*)));
+    connect (&m_Scene, SIGNAL( typeDescriptorDoubleClicked( const TypeDescriptor * ) ), this, SIGNAL(typeDescriptorDoubleClicked(const TypeDescriptor*)));
 
 }
 
 void ExpressGView::setEntityDescriptor(const EntityDescriptor *ed)
 {
+    m_Scene.setEntityDescriptor(ed);    
+    reframe();
+}
 
-    m_Scene.setEntityDescriptor(ed);
+void ExpressGView::setTypeDescriptor(const TypeDescriptor *td)
+{
+    m_Scene.setTypeDescriptor(td);
+    reframe();
+}
 
+void ExpressGView::reframe()
+{
     // reframe on viewport
     // not working as i'd like...
     qreal dx, dy;
@@ -67,5 +77,4 @@ void ExpressGView::setEntityDescriptor(const EntityDescriptor *ed)
     // then we "enlarge" the scene, to allow more scrolling space
     const QRectF itemsRect = m_Scene.itemsBoundingRect();
     m_Scene.setSceneRect( itemsRect.x()-itemsRect.width()*0.5, itemsRect.y()-height()*0.5, 2.0*itemsRect.width(), itemsRect.height()+height() );
-
 }
