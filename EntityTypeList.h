@@ -22,8 +22,9 @@
 
 #include <QTreeWidget>
 #include <QHash>
+#include <QString>
 extern void SchemaInit( class Registry & );
-#include <SdaiAUTOMOTIVE_DESIGN.h>
+#include <schema.h>
 
 // EntityTypeList : actually is the EntityDescriptorList... should be renamed
 class EntityTypeTree : public QTreeWidget
@@ -31,7 +32,7 @@ class EntityTypeTree : public QTreeWidget
     Q_OBJECT
 public:
     explicit EntityTypeTree(QWidget *parent = 0);
-    
+
 signals:
     void selectedEntityChanged(const EntityDescriptor *);
     void selectedTypeChanged(const TypeDescriptor *);
@@ -40,6 +41,7 @@ public slots:
     void findSelection();
     void select( const EntityDescriptor *ed);
     void select( const TypeDescriptor *td);
+    const QString getSchemaName();
 
 private:
     Registry  m_Registry;

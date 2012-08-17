@@ -12,7 +12,8 @@ MainWindow::MainWindow(QWidget *parent)
     , m_ExpressGView (new ExpressGView(this))
 {
     ui->setupUi(this);
-    setWindowTitle(QApplication::applicationName());
+    QString title = QApplication::applicationName()+ ": " + m_EntityTypeTree->getSchemaName();
+    setWindowTitle( title );
     buildView();
     setCentralWidget(m_ExpressGView);
 
