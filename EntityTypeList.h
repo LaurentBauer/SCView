@@ -22,6 +22,7 @@
 
 #include <QTreeWidget>
 #include <QHash>
+#include <QString>
 extern void SchemaInit( class Registry & );
 #include <schema.h>
 
@@ -40,6 +41,7 @@ public slots:
     void findSelection();
     void select( const EntityDescriptor *ed);
     void select( const TypeDescriptor *td);
+    const QString getSchemaName();
 
 private:
     Registry  m_Registry;
