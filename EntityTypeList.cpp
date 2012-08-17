@@ -129,3 +129,11 @@ void EntityTypeTree::select(const TypeDescriptor *td)
             scrollToItem(selectedItems().at(0));
     }
 }
+
+const QString EntityTypeTree::getSchemaName() {
+    QString str;
+    m_Registry.ResetSchemas();
+    const Schema * sc = m_Registry.NextSchema();
+    str = sc->Name();
+    return str;
+}
