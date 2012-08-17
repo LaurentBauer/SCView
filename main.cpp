@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     QString name = QApplication::style()->objectName();
     QApplication::setStyle(new ManhattanStyle(name));
-    a.setApplicationName("SCLView");
+    a.setApplicationName("SCView");
     a.setApplicationVersion("V0.1");
     a.setOrganizationName("To_be_named.org");
     MainWindow w;
