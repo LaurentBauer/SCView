@@ -23,7 +23,7 @@
 #include <QTreeWidget>
 #include <QHash>
 extern void SchemaInit( class Registry & );
-#include <SdaiAUTOMOTIVE_DESIGN.h>
+#include <schema.h>
 
 // EntityTypeList : actually is the EntityDescriptorList... should be renamed
 class EntityTypeTree : public QTreeWidget
@@ -31,7 +31,7 @@ class EntityTypeTree : public QTreeWidget
     Q_OBJECT
 public:
     explicit EntityTypeTree(QWidget *parent = 0);
-    
+
 signals:
     void selectedEntityChanged(const EntityDescriptor *);
     void selectedTypeChanged(const TypeDescriptor *);

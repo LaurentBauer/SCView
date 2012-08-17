@@ -25,7 +25,7 @@ extern void SchemaInit( class Registry & );
 #include <STEPfile.h>
 #include <sdai.h>
 #include <STEPattribute.h>
-#include <SdaiAUTOMOTIVE_DESIGN.h>
+#include <schema.h>
 
 
 class SchemaModel
