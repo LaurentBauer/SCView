@@ -39,6 +39,8 @@ MainWindow::MainWindow(QWidget *parent)
             , m_ExpressViewDockWidget->expressTextEdit(), SLOT(setTypeDescriptor(const TypeDescriptor*)));
 
     connect(ui->actionFind, SIGNAL(triggered()), this, SLOT (startSearch()));
+    m_ExpressViewDockWidget->expressTextEdit()->fillHighlighterWithTypes(m_EntityTypeTree->typeList());
+    m_ExpressViewDockWidget->expressTextEdit()->fillHighlighterWithEntities(m_EntityTypeTree->entityList());
 }
 
 MainWindow::~MainWindow()

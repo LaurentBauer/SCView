@@ -93,6 +93,26 @@ void EntityTypeTree::fillStringListModel(QStringListModel *model)
     model->setStringList(list);
 }
 
+QStringList EntityTypeTree::typeList()
+{
+    QStringList list;
+    const TypeDescriptor * typeDescriptor;
+    m_Registry.ResetTypes();
+    while ( (typeDescriptor= m_Registry.NextType() ) )
+        list << typeDescriptor->Name();
+    return list;
+}
+
+QStringList EntityTypeTree::entityList()
+{
+    QStringList list;
+    const EntityDescriptor * entityDescriptor;
+    m_Registry.ResetEntities();
+    while ( (entityDescriptor= m_Registry.NextEntity() ) )
+        list << entityDescriptor->Name();
+    return list;
+}
+
 void EntityTypeTree::findSelection()
 {
     if (selectedItems().count()>0)

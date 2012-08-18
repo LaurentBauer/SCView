@@ -40,7 +40,8 @@ SOURCES += main.cpp\
     expressg/LinkItem.cpp \
     expressg/ExpressgRectItem.cpp \
     ExpressViewDockWidget.cpp \
-    ExpressTextEdit.cpp
+    ExpressTextEdit.cpp \
+    ExpressSyntaxHighlighter.cpp
 #    TypeDescriptorListWidget.cpp
 
 HEADERS  += MainWindow.h \
@@ -57,7 +58,8 @@ HEADERS  += MainWindow.h \
     expressg/LinkItem.h \
     expressg/ExpressgRectItem.h \
     ExpressViewDockWidget.h \
-    ExpressTextEdit.h
+    ExpressTextEdit.h \
+    ExpressSyntaxHighlighter.h
 #    TypeDescriptorListWidget.h
 
 FORMS    += MainWindow.ui \

@@ -35,7 +35,8 @@ class EntityTypeTree : public QTreeWidget
 public:
     explicit EntityTypeTree(QWidget *parent = 0);
     void fillStringListModel(QStringListModel * model);
-
+    QStringList typeList();
+    QStringList entityList();
 signals:
     void selectedEntityChanged(const EntityDescriptor *);
     void selectedTypeChanged(const TypeDescriptor *);

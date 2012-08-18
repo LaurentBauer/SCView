@@ -17,30 +17,43 @@
     Boston, MA 02110-1301, USA.
 */
 
-#ifndef EXPRESSTEXTEDIT_H
-#define EXPRESSTEXTEDIT_H
+#ifndef EXPRESSSYNTAXHIGHLIGHTER_H
+#define EXPRESSSYNTAXHIGHLIGHTER_H
 
-#include <QTextEdit>
+#include <QSyntaxHighlighter>
+#include <QHash>
+#include <QTextCharFormat>
 
-class EntityDescriptor;
-class TypeDescriptor;
-class ExpressSyntaxHighlighter;
+class QTextDocument;
 
-class ExpressTextEdit : public QTextEdit
+class ExpressSyntaxHighlighter : public QSyntaxHighlighter
 {
     Q_OBJECT
 public:
-    explicit ExpressTextEdit(QWidget *parent = 0);
-    void fillHighlighterWithTypes(const QStringList &list);
-    void fillHighlighterWithEntities(const QStringList &list);
+    explicit ExpressSyntaxHighlighter(QTextDocument *parent = 0);
+    void fillTypes(const QStringList & list);
+    void fillEntities(const QStringList & list);
+protected:
+    void highlightBlock(const QString &text);
+
 signals:
     
 public slots:
-    void setEntityDescriptor(const EntityDescriptor * entityDescriptor);
-    void setTypeDescriptor(const TypeDescriptor * typeDescriptor);
+    
 
 private:
-    ExpressSyntaxHighlighter * m_Highlighter;
+    struct HighlightingRule
+    {
+        QRegExp pattern;
+        QTextCharFormat format;
+    };
+    QVector<HighlightingRule> highlightingRules;
+
+    QTextCharFormat keywordFormat;
+    QTextCharFormat primitiveFormat;
+    QTextCharFormat typeFormat;
+    QTextCharFormat entityFormat;
+
 };
 
-#endif // EXPRESSTEXTEDIT_H
+#endif // EXPRESSSYNTAXHIGHLIGHTER_H
