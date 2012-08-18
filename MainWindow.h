@@ -27,6 +27,8 @@ class EntityTypeTree;
 class EntityDescriptorWidget;
 class ExpressGView;
 class ExpressGScene;
+class QLineEdit;
+class QStringListModel;
 
 namespace Ui {
 class MainWindow;
@@ -39,15 +41,20 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    
+
+private slots:
+    void startSearch();
+    void selectSearchResult(QString highlighted);
 private:
     void buildView();
 private:
     Ui::MainWindow *ui;
     EntityTypeTree * m_EntityTypeTree;
     SCLDockWidget * m_SCLDockWidget;
-    //EntityDescriptorWidget * m_EntityDescriptorWidget;
     ExpressGView * m_ExpressGView;
+    QStringListModel * m_StringListModel;
+    QLineEdit * m_SearchLineEdit;
+
 };
 
 #endif // MAINWINDOW_H

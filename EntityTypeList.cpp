@@ -18,7 +18,7 @@
 */
 
 #include "EntityTypeList.h"
-
+#include <QStringListModel>
 #include <iostream>
 using namespace std;
 
@@ -82,6 +82,15 @@ EntityTypeTree::EntityTypeTree(QWidget *parent)
 
     sortItems(0,Qt::AscendingOrder);
     connect (this, SIGNAL(itemSelectionChanged()), this, SLOT(findSelection()));
+}
+
+void EntityTypeTree::fillStringListModel(QStringListModel *model)
+{
+    QHash <const void*, QTreeWidgetItem*>::const_iterator it ;
+    QStringList list;
+    for (it = m_EntityDescriptorToItem.constBegin(); it != m_EntityDescriptorToItem.constEnd(); ++it)
+        list << it.value()->text(0);
+    model->setStringList(list);
 }
 
 void EntityTypeTree::findSelection()

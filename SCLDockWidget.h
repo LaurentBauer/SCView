@@ -21,7 +21,6 @@
 #define SCLDOCKWIDGET_H
 
 #include <QDockWidget>
-
 class QToolBar;
 class EntityTypeTree;
 
@@ -35,11 +34,8 @@ signals:
     
 public slots:
 
-
 private:
     QToolBar *m_ToolBar;
-
-    
 };
 
 #endif // SCLDOCKWIDGET_H

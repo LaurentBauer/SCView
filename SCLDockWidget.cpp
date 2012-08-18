@@ -20,8 +20,6 @@
 #include "SCLDockWidget.h"
 #include <QToolBar>
 #include <QAction>
-#include <QLineEdit>
-#include <QCompleter>
 #include "EntityTypeList.h"
 
 SCLDockWidget::SCLDockWidget(EntityTypeTree *tree, QWidget *parent)
@@ -36,38 +34,9 @@ SCLDockWidget::SCLDockWidget(EntityTypeTree *tree, QWidget *parent)
     toggleViewAction()->setIcon(QIcon(":/Schema"));
     toggleViewAction()->setShortcut( QKeySequence(Qt::Key_F3) );
 
-/*
-    QActionGroup * contentGroup= new QActionGroup(this);
-    QAction * listAction = new QAction(QIcon(":/listView"), tr("list view"), m_ToolBar);
-    listAction->setCheckable(true);
-    listAction->setChecked(true);
-    QAction * treeAction = new QAction(QIcon(":/treeView"), tr("tree view"), m_ToolBar);
-    treeAction->setCheckable(true);
-    treeAction->setChecked(false);
-    contentGroup->addAction(listAction);
-    contentGroup->addAction(treeAction);
-    m_ToolBar->addAction(listAction);
-    m_ToolBar->widgetForAction(listAction)->setProperty("type", QLatin1String("dockbutton"));
-    m_ToolBar->addAction(treeAction);
-    m_ToolBar->widgetForAction(treeAction)->setProperty("type", QLatin1String("dockbutton"));
-*/
-
-    QLineEdit * lineEdit = new QLineEdit(m_ToolBar);
-    lineEdit->setText("Search");
-    QPalette palette;
-    palette.setColor(QPalette::Text, Qt::white);
-    lineEdit->setPalette(palette);
-    QCompleter * completer = new QCompleter(tree->model());
-    completer->setMaxVisibleItems(10);
-    completer->setCompletionMode(QCompleter::PopupCompletion);
-    completer->setCaseSensitivity(Qt::CaseInsensitive);
-    lineEdit->setCompleter(completer);
-
-    m_ToolBar->addWidget(lineEdit);
     QWidget * toolBarSpacer= new QWidget(m_ToolBar);
     toolBarSpacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
     QAction * hideDockWidgetAction = new QAction(QIcon(":close"), tr("Hide Explorer"), this);
-
 
     m_ToolBar->addWidget(toolBarSpacer);
     m_ToolBar->addAction(hideDockWidgetAction);
@@ -76,5 +45,5 @@ SCLDockWidget::SCLDockWidget(EntityTypeTree *tree, QWidget *parent)
 
     // content
     setContentsMargins(0,0,-1,0);
-
 }
+

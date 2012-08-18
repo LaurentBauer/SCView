@@ -3,8 +3,8 @@
         <file alias="Type">icones/attribute.png</file>
         <file alias="Entity">icones/type.png</file>
         <file alias="close">icones/close.png</file>
-        <file alias="listView">icones/ListView.png</file>
-        <file alias="treeView">icones/TreeView.png</file>
         <file alias="Schema">icones/Schema.png</file>
+        <file alias="WhiteRect">icones/WhiteRect.png</file>
+        <file alias="Find">icones/find.png</file>
     </qresource>
 </RCC>
