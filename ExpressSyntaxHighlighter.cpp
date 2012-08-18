@@ -55,7 +55,8 @@ ExpressSyntaxHighlighter::ExpressSyntaxHighlighter(QTextDocument *parent) :
     // it is followed           (?=
     // by 0 or 1                ?:
     // ; or whitespace          ;|\\s
-    primitivePatterns    << "\\b(INTEGER|REAL|BOOLEAN|LOGICAL|STRING|BINARY|NUMBER)(?=(?:;|\\s))";
+    primitivePatterns    << "\\b(INTEGER|REAL|BOOLEAN|LOGICAL|STRING|BINARY|NUMBER)(?=(?:;|\\s))"
+                            ;
 
     // foreach not YET necessary since there is only one pattern
     // but what will be tomorrow?
@@ -78,7 +79,7 @@ void ExpressSyntaxHighlighter::fillTypes(const QStringList &list)
     for (int i=0; i<typeCount; ++i)
     {
         QString pattern;
-        pattern = "(?:\\s|\\(|,)" + list.at(i) + "(?=(?:;|,|\\s|\\)|\\n||\\r))";
+        pattern = "(?:\\s|\\(|,)\\b" + list.at(i) + "\\b(?=(?:;|,|\\s|\\)|\\n||\\r))";
         typePatterns << pattern;
     }
     foreach (const QString &pattern, typePatterns)
@@ -99,7 +100,7 @@ void ExpressSyntaxHighlighter::fillEntities(const QStringList &list)
     for (int i=0; i<entityCount; ++i)
     {
         QString pattern;
-        pattern = "(?:\\s|\\(|,)" + list.at(i) + "(?=(?:;|,|\\s|\\)|\\n||\\r))";
+        pattern = "(?:\\s|\\(|,)\\b" + list.at(i) + "\\b(?=(?:;|,|\\s|\\)|\\n||\\r))";
         entityPatterns << pattern;
     }
     foreach (const QString &pattern, entityPatterns)
