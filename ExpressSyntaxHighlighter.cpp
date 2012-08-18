@@ -35,7 +35,7 @@ ExpressSyntaxHighlighter::ExpressSyntaxHighlighter(QTextDocument *parent) :
                     << "\\bSELECT\\b"
                     << "\\bENTITY\\b" << "\\bEND_ENTITY\\b"
                     << "\\bABSTRACT\\b"
-                    << "\\bSUBTYPE OF\\b" << "\\bSUPERTYPE\\b" << "\\bONEOF\\b"
+                    << "\\bSUBTYPE OF\\b" << "\\bSUPERTYPE\\b" << "\\bSUPERTYPE OF\\b" << "\\bONEOF\\b"
                     << "\\bDERIVE\\b"
                     << "\\bOPTIONAL\\b"
                     // << "\\bWHERE\\b" << "\\bEND_RULE\\b"
