@@ -38,7 +38,9 @@ SOURCES += main.cpp\
     expressg/EntityItem.cpp \
     expressg/TypeItem.cpp \
     expressg/LinkItem.cpp \
-    expressg/ExpressgRectItem.cpp
+    expressg/ExpressgRectItem.cpp \
+    ExpressViewDockWidget.cpp \
+    ExpressTextEdit.cpp
 #    TypeDescriptorListWidget.cpp
 
 HEADERS  += MainWindow.h \
@@ -53,7 +55,9 @@ HEADERS  += MainWindow.h \
     expressg/EntityItem.h \
     expressg/TypeItem.h \
     expressg/LinkItem.h \
-    expressg/ExpressgRectItem.h
+    expressg/ExpressgRectItem.h \
+    ExpressViewDockWidget.h \
+    ExpressTextEdit.h
 #    TypeDescriptorListWidget.h
 
 FORMS    += MainWindow.ui \

@@ -6,5 +6,6 @@
         <file alias="Schema">icones/Schema.png</file>
         <file alias="WhiteRect">icones/WhiteRect.png</file>
         <file alias="Find">icones/find.png</file>
+        <file alias="Express">icones/Express.png</file>
     </qresource>
 </RCC>

@@ -1,8 +1,10 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 #include "SCLDockWidget.h"
+#include "ExpressViewDockWidget.h"
 #include "EntityTypeList.h"
 #include "expressg/ExpressGView.h"
+#include "ExpressTextEdit.h"
 #include <QToolButton>
 #include <QLineEdit>
 #include <QLabel>
@@ -15,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
     , m_EntityTypeTree ( new EntityTypeTree() )
     , m_SCLDockWidget (new SCLDockWidget(m_EntityTypeTree, this) )
+    , m_ExpressViewDockWidget( new ExpressViewDockWidget(this))
     , m_ExpressGView (new ExpressGView(this))
     , m_StringListModel(new QStringListModel())
     , m_SearchLineEdit(0)
@@ -29,6 +32,12 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_ExpressGView, SIGNAL(typeDescriptorDoubleClicked(const TypeDescriptor*)), m_EntityTypeTree, SLOT(select( const TypeDescriptor * )));
     connect(m_EntityTypeTree, SIGNAL(selectedEntityChanged(const EntityDescriptor*)), m_ExpressGView, SLOT(setEntityDescriptor(const EntityDescriptor*)));
     connect(m_EntityTypeTree, SIGNAL(selectedTypeChanged(const TypeDescriptor*)), m_ExpressGView, SLOT(setTypeDescriptor(const TypeDescriptor*)));
+
+    connect(m_EntityTypeTree, SIGNAL(selectedEntityChanged(const EntityDescriptor*))
+            , m_ExpressViewDockWidget->expressTextEdit(), SLOT(setEntityDescriptor(const EntityDescriptor*)));
+    connect(m_EntityTypeTree, SIGNAL(selectedTypeChanged(const TypeDescriptor*))
+            , m_ExpressViewDockWidget->expressTextEdit(), SLOT(setTypeDescriptor(const TypeDescriptor*)));
+
     connect(ui->actionFind, SIGNAL(triggered()), this, SLOT (startSearch()));
 }
 
@@ -47,6 +56,9 @@ void MainWindow::buildView()
 {
     addDockWidget(Qt::LeftDockWidgetArea, m_SCLDockWidget);
     ui->menuWindows->addAction(m_SCLDockWidget->toggleViewAction());
+
+    addDockWidget(Qt::LeftDockWidgetArea, m_ExpressViewDockWidget);
+    ui->menuWindows->addAction(m_ExpressViewDockWidget->toggleViewAction());
 
     // Search
     QWidget * searchWidget = new QWidget(ui->menuBar);
