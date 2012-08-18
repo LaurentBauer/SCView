@@ -111,22 +111,6 @@ EntityItem::EntityItem(const EntityDescriptor *entityDescriptor, QGraphicsItem *
                 childDescriptor = attrDescriptor->AggrElemTypeDescriptor();   // pointed type inside the aggregate
 
             TypeItem * item = new TypeItem(childDescriptor, this);
-/*
-
-            QString name;
-            name = QString (childDescriptor->Name());
-            int childType = childDescriptor->Type();
-
-            bool isBasicType=(childDescriptor->ReferentType()==0);
-            bool isSelectType = (childType==sdaiSELECT);
-            bool isEnumType = (childType==sdaiENUMERATION);
-
-            bool drawLeftRect=isSelectType;
-            bool drawRightRect=(!isSelectType) && isBasicType || isEnumType;
-            bool isDashed=(!isBasicType) || isSelectType || isEnumType;
-
-            ExpressgRectItem * item = new ExpressgRectItem (name, drawLeftRect, drawRightRect, isDashed, this);
-            */
             item->setPos( childX, childY );
             vLineHeight = childY;
             childY+=50.0;

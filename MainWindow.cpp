@@ -16,8 +16,8 @@ MainWindow::MainWindow(QWidget *parent)
     , m_EntityTypeTree ( new EntityTypeTree() )
     , m_SCLDockWidget (new SCLDockWidget(m_EntityTypeTree, this) )
     , m_ExpressGView (new ExpressGView(this))
-    , m_SearchLineEdit(0)
     , m_StringListModel(new QStringListModel())
+    , m_SearchLineEdit(0)
 {
     ui->setupUi(this);
     QString title = QApplication::applicationName()+ ": " + m_EntityTypeTree->getSchemaName();

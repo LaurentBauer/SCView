@@ -34,7 +34,7 @@ TypeItem::TypeItem(const TypeDescriptor *typeDescriptor, QGraphicsItem *parent)
     bool isEnumType = (childType==sdaiENUMERATION);
 
     bool drawLeftRect=isSelectType;
-    bool drawRightRect=(!isSelectType) && isBasicType || isEnumType;
+    bool drawRightRect=( (!isSelectType) && isBasicType ) || isEnumType;
     bool isDashed=(!isBasicType) || isSelectType || isEnumType;
 
     setFlag(QGraphicsItem::ItemIsSelectable, true);
