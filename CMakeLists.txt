@@ -79,7 +79,7 @@ include_directories( ${STEPCODE_ROOT_DIR}/src/base ${STEPCODE_ROOT_DIR}/src/clst
                      ${STEPCODE_ROOT_DIR}/include ${CMAKE_BINARY_DIR} )
 
 # this function builds SCView for a single schema
-function( BUILD_SCVIEW schema)
+function( BUILD_SCVIEW schema )
     # Set SCHEMA_LINK_NAME. Logic below is derived from STEPcode/data/CMakeLists.txt; I (MP) am the author.
     # lib will be in ${CMAKE_BINARY_DIR}/lib/, named sdai_${SCHEMA_LINK_NAME}. Prefix/suffix depend on platform, of course.
     # lib source will be at ${CMAKE_BINARY_DIR}/${SCHEMA_LINK_NAME}/
@@ -95,7 +95,7 @@ function( BUILD_SCVIEW schema)
     target_link_libraries( ${PROJECT_NAME}_${SCHEMA_LINK_NAME} ${QT_LIBRARIES} base stepcore stepeditor stepdai steputils sdai_${SCHEMA_LINK_NAME} )
     #can't use include_directories for the schema headers because each target would see the headers from all previous targets
     set_target_properties( ${PROJECT_NAME}_${SCHEMA_LINK_NAME} PROPERTIES COMPILE_FLAGS "-I${STEPCODE_BUILD_DIR}/data/${SCHEMA_LINK_NAME}" )
-endfunction( BUILD_EVIEW )
+endfunction( BUILD_SCVIEW schema )
 
 foreach( schema ${SCHEMAS} )
     BUILD_SCVIEW( ${schema} )
