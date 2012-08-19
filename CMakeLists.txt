@@ -48,6 +48,7 @@ add_subdirectory( ${STEPCODE_ROOT_DIR} "${CMAKE_CURRENT_BINARY_DIR}/sc" EXCLUDE_
 set( MOC_HDRS
      MainWindow.h EntityDescriptorWidget.h SCLDockWidget.h expressg/ExpressGView.h
      expressg/ExpressGScene.h EntityTypeList.h manhattanstyle.h styleanimator.h
+	 ExpressViewDockWidget.h ExpressTextEdit.h ExpressSyntaxHighlighter.h
 )
 set( UI_FILES
      EntityDescriptorWidget.ui  MainWindow.ui
@@ -63,7 +64,8 @@ set( SRCS
     EntityTypeList.cpp             expressg/LinkItem.cpp      SchemaModel.cpp
     expressg/EntityItem.cpp        expressg/TypeItem.cpp      SCLDockWidget.cpp
     expressg/ExpressgRectItem.cpp  main.cpp                   styleanimator.cpp
-    expressg/ExpressGScene.cpp     MainWindow.cpp
+    expressg/ExpressGScene.cpp     MainWindow.cpp             ExpressViewDockWidget.cpp
+    ExpressTextEdit.cpp            ExpressSyntaxHighlighter.cpp
 )
 
 set( HDRS
@@ -71,7 +73,8 @@ set( HDRS
     EntityTypeList.h             expressg/LinkItem.h      SCLDockWidget.h
     expressg/EntityItem.h        expressg/TypeItem.h      styleanimator.h
     expressg/ExpressgRectItem.h  MainWindow.h
-    expressg/ExpressGScene.h     manhattanstyle.h
+    expressg/ExpressGScene.h     manhattanstyle.h 
+	ExpressViewDockWidget.h      ExpressTextEdit.h        ExpressSyntaxHighlighter.h
 )
 include_directories( ${STEPCODE_ROOT_DIR}/src/base ${STEPCODE_ROOT_DIR}/src/clstepcore
                      ${STEPCODE_ROOT_DIR}/src/cldai ${STEPCODE_ROOT_DIR}/src/clutils
