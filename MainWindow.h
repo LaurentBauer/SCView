@@ -21,6 +21,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+extern void SchemaInit( class Registry & );
+#include <schema.h>
 
 class SCLDockWidget;
 class EntityTypeTree;
@@ -42,6 +44,8 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    QStringList typeList();
+    QStringList entityList();
 
 private slots:
     void startSearch();
@@ -50,6 +54,7 @@ private:
     void buildView();
 private:
     Ui::MainWindow *ui;
+    Registry m_Registry;
     EntityTypeTree * m_EntityTypeTree;
     SCLDockWidget * m_SCLDockWidget;
     ExpressViewDockWidget * m_ExpressViewDockWidget;

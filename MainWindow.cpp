@@ -15,7 +15,8 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
-    , m_EntityTypeTree ( new EntityTypeTree() )
+    , m_Registry( SchemaInit )
+    , m_EntityTypeTree ( new EntityTypeTree(m_Registry) )
     , m_SCLDockWidget (new SCLDockWidget(m_EntityTypeTree, this) )
     , m_ExpressViewDockWidget( new ExpressViewDockWidget(this))
     , m_ExpressGView (new ExpressGView(this))
@@ -39,13 +40,33 @@ MainWindow::MainWindow(QWidget *parent)
             , m_ExpressViewDockWidget->expressTextEdit(), SLOT(setTypeDescriptor(const TypeDescriptor*)));
 
     connect(ui->actionFind, SIGNAL(triggered()), this, SLOT (startSearch()));
-    m_ExpressViewDockWidget->expressTextEdit()->fillHighlighterWithTypes(m_EntityTypeTree->typeList());
-    m_ExpressViewDockWidget->expressTextEdit()->fillHighlighterWithEntities(m_EntityTypeTree->entityList());
+    m_ExpressViewDockWidget->expressTextEdit()->fillHighlighterWithTypes( typeList());
+    m_ExpressViewDockWidget->expressTextEdit()->fillHighlighterWithEntities( entityList());
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+QStringList MainWindow::typeList()
+{
+    QStringList list;
+    const TypeDescriptor * typeDescriptor;
+    m_Registry.ResetTypes();
+    while ( (typeDescriptor= m_Registry.NextType() ) )
+        list << typeDescriptor->Name();
+    return list;
+}
+
+QStringList MainWindow::entityList()
+{
+    QStringList list;
+    const EntityDescriptor * entityDescriptor;
+    m_Registry.ResetEntities();
+    while ( (entityDescriptor= m_Registry.NextEntity() ) )
+        list << entityDescriptor->Name();
+    return list;
 }
 
 void MainWindow::startSearch()

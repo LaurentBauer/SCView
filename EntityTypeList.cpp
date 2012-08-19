@@ -28,9 +28,9 @@ enum itemType {
     };
 
 
-EntityTypeTree::EntityTypeTree(QWidget *parent)
+EntityTypeTree::EntityTypeTree(Registry &registry, QWidget *parent)
     : QTreeWidget(parent)
-    , m_Registry( SchemaInit )
+    , m_Registry( registry )
     , m_EntityIcon(":/Entity")
     , m_TypeIcon(":/Type")
 {
@@ -91,26 +91,6 @@ void EntityTypeTree::fillStringListModel(QStringListModel *model)
     for (it = m_EntityDescriptorToItem.constBegin(); it != m_EntityDescriptorToItem.constEnd(); ++it)
         list << it.value()->text(0);
     model->setStringList(list);
-}
-
-QStringList EntityTypeTree::typeList()
-{
-    QStringList list;
-    const TypeDescriptor * typeDescriptor;
-    m_Registry.ResetTypes();
-    while ( (typeDescriptor= m_Registry.NextType() ) )
-        list << typeDescriptor->Name();
-    return list;
-}
-
-QStringList EntityTypeTree::entityList()
-{
-    QStringList list;
-    const EntityDescriptor * entityDescriptor;
-    m_Registry.ResetEntities();
-    while ( (entityDescriptor= m_Registry.NextEntity() ) )
-        list << entityDescriptor->Name();
-    return list;
 }
 
 void EntityTypeTree::findSelection()
