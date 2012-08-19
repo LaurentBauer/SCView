@@ -30,14 +30,12 @@ class ExpressViewDockWidget : public QDockWidget
     Q_OBJECT
 public:
     explicit ExpressViewDockWidget(QWidget *parent = 0);
-    inline ExpressTextEdit * expressTextEdit() { return m_ExpressTextEdit; }
 
 signals:
     
 public slots:
 
 private:
-    ExpressTextEdit * m_ExpressTextEdit;
     QToolBar * m_ToolBar;
     
 };

@@ -32,6 +32,7 @@ class ExpressGScene;
 class QLineEdit;
 class QStringListModel;
 class ExpressViewDockWidget;
+class ExpressTextEdit;
 
 namespace Ui {
 class MainWindow;
@@ -58,6 +59,7 @@ private:
     EntityTypeTree * m_EntityTypeTree;
     SCLDockWidget * m_SCLDockWidget;
     ExpressViewDockWidget * m_ExpressViewDockWidget;
+    ExpressTextEdit * m_ExpressTextEdit;
     ExpressGView * m_ExpressGView;
     QStringListModel * m_StringListModel;
     QLineEdit * m_SearchLineEdit;

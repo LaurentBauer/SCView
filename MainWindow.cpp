@@ -19,6 +19,7 @@ MainWindow::MainWindow(QWidget *parent)
     , m_EntityTypeTree ( new EntityTypeTree(m_Registry) )
     , m_SCLDockWidget (new SCLDockWidget(m_EntityTypeTree, this) )
     , m_ExpressViewDockWidget( new ExpressViewDockWidget(this))
+    , m_ExpressTextEdit(new ExpressTextEdit(m_Registry, m_ExpressViewDockWidget))
     , m_ExpressGView (new ExpressGView(this))
     , m_StringListModel(new QStringListModel())
     , m_SearchLineEdit(0)
@@ -35,13 +36,13 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_EntityTypeTree, SIGNAL(selectedTypeChanged(const TypeDescriptor*)), m_ExpressGView, SLOT(setTypeDescriptor(const TypeDescriptor*)));
 
     connect(m_EntityTypeTree, SIGNAL(selectedEntityChanged(const EntityDescriptor*))
-            , m_ExpressViewDockWidget->expressTextEdit(), SLOT(setEntityDescriptor(const EntityDescriptor*)));
+            , m_ExpressTextEdit, SLOT(setEntityDescriptor(const EntityDescriptor*)));
     connect(m_EntityTypeTree, SIGNAL(selectedTypeChanged(const TypeDescriptor*))
-            , m_ExpressViewDockWidget->expressTextEdit(), SLOT(setTypeDescriptor(const TypeDescriptor*)));
+            , m_ExpressTextEdit, SLOT(setTypeDescriptor(const TypeDescriptor*)));
 
     connect(ui->actionFind, SIGNAL(triggered()), this, SLOT (startSearch()));
-    m_ExpressViewDockWidget->expressTextEdit()->fillHighlighterWithTypes( typeList());
-    m_ExpressViewDockWidget->expressTextEdit()->fillHighlighterWithEntities( entityList());
+    m_ExpressTextEdit->fillHighlighterWithTypes( typeList());
+    m_ExpressTextEdit->fillHighlighterWithEntities( entityList());
 }
 
 MainWindow::~MainWindow()
@@ -80,6 +81,7 @@ void MainWindow::buildView()
     addDockWidget(Qt::LeftDockWidgetArea, m_SCLDockWidget);
     ui->menuWindows->addAction(m_SCLDockWidget->toggleViewAction());
 
+    m_ExpressViewDockWidget->setWidget(m_ExpressTextEdit);
     addDockWidget(Qt::LeftDockWidgetArea, m_ExpressViewDockWidget);
     ui->menuWindows->addAction(m_ExpressViewDockWidget->toggleViewAction());
 

@@ -24,10 +24,8 @@
 
 ExpressViewDockWidget::ExpressViewDockWidget(QWidget *parent)
     : QDockWidget(tr("Express View"), parent)
-    , m_ExpressTextEdit (new ExpressTextEdit(this))
     , m_ToolBar (new QToolBar(this))
 {
-    setWidget(m_ExpressTextEdit);
     // Build ToolBar
     setTitleBarWidget(m_ToolBar);
     m_ToolBar->setContentsMargins(0, 0, 0, 0);

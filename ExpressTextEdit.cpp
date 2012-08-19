@@ -21,10 +21,12 @@
 #include "ExpressSyntaxHighlighter.h"
 #include <ExpDict.h>
 
-ExpressTextEdit::ExpressTextEdit(QWidget *parent)
+ExpressTextEdit::ExpressTextEdit(Registry &registry, QWidget *parent)
     : QTextEdit(parent)
+    , m_Registry(registry)
     , m_Highlighter ( new ExpressSyntaxHighlighter(this->document()))
 {
+    connect ( this, SIGNAL(cursorPositionChanged()), this, SLOT(findExpressObject()));
 }
 
 void ExpressTextEdit::fillHighlighterWithTypes(const QStringList &list)
@@ -51,4 +53,14 @@ void ExpressTextEdit::setTypeDescriptor(const TypeDescriptor *typeDescriptor)
     std::string str;
     QString text(typeDescriptor->GenerateExpress(str));
     setPlainText(text);
+}
+
+void ExpressTextEdit::findExpressObject()
+{
+    QTextCursor cursor = textCursor();
+    cursor.select(QTextCursor::WordUnderCursor);
+    QString wordUnderCursor = cursor.selectedText();
+    cout << "ExpressTextEdit::findExpressObject()" << wordUnderCursor.toStdString() <<  endl;
+
+    const EntityDescriptor * entityDescriptor = m_Registry.FindEntity(wordUnderCursor.toAscii());
 }

@@ -21,6 +21,7 @@
 #define EXPRESSTEXTEDIT_H
 
 #include <QTextEdit>
+#include <schema.h>
 
 class EntityDescriptor;
 class TypeDescriptor;
@@ -30,7 +31,7 @@ class ExpressTextEdit : public QTextEdit
 {
     Q_OBJECT
 public:
-    explicit ExpressTextEdit(QWidget *parent = 0);
+    explicit ExpressTextEdit(Registry &registry, QWidget *parent=0);
     void fillHighlighterWithTypes(const QStringList &list);
     void fillHighlighterWithEntities(const QStringList &list);
 signals:
@@ -38,8 +39,9 @@ signals:
 public slots:
     void setEntityDescriptor(const EntityDescriptor * entityDescriptor);
     void setTypeDescriptor(const TypeDescriptor * typeDescriptor);
-
+    void findExpressObject();
 private:
+    Registry &m_Registry;
     ExpressSyntaxHighlighter * m_Highlighter;
 };
 
