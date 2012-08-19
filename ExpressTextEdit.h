@@ -34,6 +34,8 @@ public:
     explicit ExpressTextEdit(Registry &registry, QWidget *parent=0);
     void fillHighlighterWithTypes(const QStringList &list);
     void fillHighlighterWithEntities(const QStringList &list);
+protected:
+    virtual void mouseMoveEvent(QMouseEvent *e);
 signals:
     
 public slots:

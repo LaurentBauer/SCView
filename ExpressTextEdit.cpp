@@ -20,12 +20,14 @@
 #include "ExpressTextEdit.h"
 #include "ExpressSyntaxHighlighter.h"
 #include <ExpDict.h>
+#include <QMouseEvent>
 
 ExpressTextEdit::ExpressTextEdit(Registry &registry, QWidget *parent)
     : QTextEdit(parent)
     , m_Registry(registry)
     , m_Highlighter ( new ExpressSyntaxHighlighter(this->document()))
 {
+    setMouseTracking(true);
     connect ( this, SIGNAL(cursorPositionChanged()), this, SLOT(findExpressObject()));
 }
 
@@ -37,6 +39,30 @@ void ExpressTextEdit::fillHighlighterWithTypes(const QStringList &list)
 void ExpressTextEdit::fillHighlighterWithEntities(const QStringList &list)
 {
     m_Highlighter->fillEntities(list);
+}
+
+void ExpressTextEdit::mouseMoveEvent(QMouseEvent *e)
+{
+    cout << "ExpressTextEdit::mouseMoveEvent" << endl;
+    QTextCursor cursor = cursorForPosition(e->pos());
+    cursor.select(QTextCursor::WordUnderCursor);
+    QString wordUnderCursor = cursor.selectedText();
+
+    const EntityDescriptor * entityDescriptor = m_Registry.FindEntity(wordUnderCursor.toAscii());
+    const TypeDescriptor * typeDescriptor = m_Registry.FindType(wordUnderCursor.toAscii());
+    if (entityDescriptor )
+    {
+        std::string str;
+        setToolTip(entityDescriptor->GenerateExpress(str));
+    }
+    else if(typeDescriptor)
+    {
+        std::string str;
+        setToolTip(typeDescriptor->GenerateExpress(str));
+    }
+    else setToolTip(QString());
+
+
 }
 
 void ExpressTextEdit::setEntityDescriptor(const EntityDescriptor *entityDescriptor)
@@ -60,7 +86,13 @@ void ExpressTextEdit::findExpressObject()
     QTextCursor cursor = textCursor();
     cursor.select(QTextCursor::WordUnderCursor);
     QString wordUnderCursor = cursor.selectedText();
-    cout << "ExpressTextEdit::findExpressObject()" << wordUnderCursor.toStdString() <<  endl;
 
     const EntityDescriptor * entityDescriptor = m_Registry.FindEntity(wordUnderCursor.toAscii());
+    if (entityDescriptor )
+    {
+        std::string str;
+        setToolTip(entityDescriptor->GenerateExpress(str));
+    }
+    else setToolTip(QString());
+
 }
