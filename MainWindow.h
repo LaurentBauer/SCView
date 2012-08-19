@@ -1,4 +1,4 @@
-/*  This file is part of [To be named], a STEP-Express viewer
+/*  This file is part of SCView, a STEP-Express viewer based on StepCode
     Copyright (C) 2012 Laurent Bauer lahoraent@hotmail.com
 
     This library is free software; you can redistribute it and/or
@@ -51,6 +51,9 @@ public:
 private slots:
     void startSearch();
     void selectSearchResult(QString highlighted);
+    void setEntity(const EntityDescriptor * entityDescriptor);
+    void setType(const TypeDescriptor * typeDescriptor);
+
 private:
     void buildView();
 private:

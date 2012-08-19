@@ -117,6 +117,7 @@ void EntityTypeTree::findSelection()
 
 void EntityTypeTree::select(const EntityDescriptor *ed)
 {
+    blockSignals(true);
     if (m_EntityDescriptorToItem.contains(ed))
     {
         clearSelection();
@@ -125,6 +126,7 @@ void EntityTypeTree::select(const EntityDescriptor *ed)
         if (selectedItems().size() >0)
             scrollToItem(selectedItems().at(0));
     }
+    blockSignals(false);
 }
 
 void EntityTypeTree::select(const TypeDescriptor *td)

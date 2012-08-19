@@ -34,14 +34,20 @@ public:
     explicit ExpressTextEdit(Registry &registry, QWidget *parent=0);
     void fillHighlighterWithTypes(const QStringList &list);
     void fillHighlighterWithEntities(const QStringList &list);
+
 protected:
     virtual void mouseMoveEvent(QMouseEvent *e);
+    virtual void mouseDoubleClickEvent(QMouseEvent *e);
+
 signals:
-    
+    void entityDoubleClicked(const EntityDescriptor *);
+    void typeDoubleClicked(const TypeDescriptor *);
+
 public slots:
     void setEntityDescriptor(const EntityDescriptor * entityDescriptor);
     void setTypeDescriptor(const TypeDescriptor * typeDescriptor);
-    void findExpressObject();
+//    void findExpressObject();
+
 private:
     Registry &m_Registry;
     ExpressSyntaxHighlighter * m_Highlighter;

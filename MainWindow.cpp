@@ -30,17 +30,22 @@ MainWindow::MainWindow(QWidget *parent)
     buildView();
     setCentralWidget(m_ExpressGView);
 
-    connect(m_ExpressGView, SIGNAL(entityDescriptorDoubleClicked(const EntityDescriptor*)), m_EntityTypeTree, SLOT(select( const EntityDescriptor * )));
-    connect(m_ExpressGView, SIGNAL(typeDescriptorDoubleClicked(const TypeDescriptor*)), m_EntityTypeTree, SLOT(select( const TypeDescriptor * )));
-    connect(m_EntityTypeTree, SIGNAL(selectedEntityChanged(const EntityDescriptor*)), m_ExpressGView, SLOT(setEntityDescriptor(const EntityDescriptor*)));
-    connect(m_EntityTypeTree, SIGNAL(selectedTypeChanged(const TypeDescriptor*)), m_ExpressGView, SLOT(setTypeDescriptor(const TypeDescriptor*)));
-
+    connect(m_ExpressGView, SIGNAL(entityDescriptorDoubleClicked(const EntityDescriptor*))
+            , this, SLOT(setEntity(const EntityDescriptor*)));
     connect(m_EntityTypeTree, SIGNAL(selectedEntityChanged(const EntityDescriptor*))
-            , m_ExpressTextEdit, SLOT(setEntityDescriptor(const EntityDescriptor*)));
+            , this, SLOT(setEntity(const EntityDescriptor*)));
+    connect(m_ExpressTextEdit, SIGNAL(entityDoubleClicked(const EntityDescriptor*))
+            , this, SLOT(setEntity(const EntityDescriptor*)));
+
+    connect(m_ExpressGView, SIGNAL(typeDescriptorDoubleClicked(const TypeDescriptor*))
+            , this, SLOT(setType(const TypeDescriptor*)));
     connect(m_EntityTypeTree, SIGNAL(selectedTypeChanged(const TypeDescriptor*))
-            , m_ExpressTextEdit, SLOT(setTypeDescriptor(const TypeDescriptor*)));
+            , this, SLOT(setType(const TypeDescriptor*)));
+    connect(m_ExpressTextEdit, SIGNAL(typeDoubleClicked(const TypeDescriptor*))
+            , this, SLOT(setType(const TypeDescriptor*)));
 
     connect(ui->actionFind, SIGNAL(triggered()), this, SLOT (startSearch()));
+
     m_ExpressTextEdit->fillHighlighterWithTypes( typeList());
     m_ExpressTextEdit->fillHighlighterWithEntities( entityList());
 }
@@ -76,6 +81,38 @@ void MainWindow::startSearch()
     m_SearchLineEdit->clear();
 }
 
+void MainWindow::selectSearchResult(QString highlighted)
+{
+    QList<QTreeWidgetItem * > results = m_EntityTypeTree->findItems(highlighted, Qt::MatchFixedString |Qt::MatchCaseSensitive| Qt::MatchRecursive);
+    if (!results.isEmpty())
+    {
+        QTreeWidgetItem * item = results.first();
+        m_EntityTypeTree->clearSelection();
+        item->setSelected(true);
+        m_EntityTypeTree->expandItem(item);
+        m_EntityTypeTree->scrollToItem(item);
+    }
+}
+
+void MainWindow::setEntity(const EntityDescriptor *entityDescriptor)
+{
+    QObject * sender = QObject::sender();
+    if (sender!=m_EntityTypeTree)
+        m_EntityTypeTree->select(entityDescriptor);
+    m_ExpressGView->setEntityDescriptor(entityDescriptor);
+    m_ExpressTextEdit->setEntityDescriptor(entityDescriptor);
+}
+
+void MainWindow::setType(const TypeDescriptor *typeDescriptor)
+{
+    QObject * sender = QObject::sender();
+    if (sender!=m_EntityTypeTree)
+        m_EntityTypeTree->select(typeDescriptor);
+    m_ExpressGView->setTypeDescriptor(typeDescriptor);
+    m_ExpressTextEdit->setTypeDescriptor(typeDescriptor);
+
+}
+
 void MainWindow::buildView()
 {
     addDockWidget(Qt::LeftDockWidgetArea, m_SCLDockWidget);
@@ -108,16 +145,3 @@ void MainWindow::buildView()
 
 }
 
-
-void MainWindow::selectSearchResult(QString highlighted)
-{
-    QList<QTreeWidgetItem * > results = m_EntityTypeTree->findItems(highlighted, Qt::MatchFixedString |Qt::MatchCaseSensitive| Qt::MatchRecursive);
-    if (!results.isEmpty())
-    {
-        QTreeWidgetItem * item = results.first();
-        m_EntityTypeTree->clearSelection();
-        item->setSelected(true);
-        m_EntityTypeTree->expandItem(item);
-        m_EntityTypeTree->scrollToItem(item);
-    }
-}

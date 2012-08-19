@@ -48,6 +48,9 @@ ExpressSyntaxHighlighter::ExpressSyntaxHighlighter(QTextDocument *parent) :
     }
 
     primitiveFormat.setForeground(QColor(128,128,0));
+
+    // StringList and foreach not YET necessary since there is only ONE pattern
+    // but what will be tomorrow?
     QStringList primitivePatterns;
     // the regexp:
     // starts with a word       \\b
@@ -55,11 +58,8 @@ ExpressSyntaxHighlighter::ExpressSyntaxHighlighter(QTextDocument *parent) :
     // it is followed           (?=
     // by 0 or 1                ?:
     // ; or whitespace          ;|\\s
-    primitivePatterns    << "\\b(INTEGER|REAL|BOOLEAN|LOGICAL|STRING|BINARY|NUMBER)(?=(?:;|\\s))"
-                            ;
+    primitivePatterns    << "\\b(INTEGER|REAL|BOOLEAN|LOGICAL|STRING|BINARY|NUMBER)(?=(?:;|\\s))" ;
 
-    // foreach not YET necessary since there is only one pattern
-    // but what will be tomorrow?
     foreach (const QString &pattern, primitivePatterns)
     {
         rule.pattern = QRegExp(pattern, Qt::CaseInsensitive);
@@ -70,7 +70,6 @@ ExpressSyntaxHighlighter::ExpressSyntaxHighlighter(QTextDocument *parent) :
 
 void ExpressSyntaxHighlighter::fillTypes(const QStringList &list)
 {
-    cout << "ExpressSyntaxHighlighter::fillTypes " << list.count() << endl;
     HighlightingRule rule;
 
     typeFormat.setForeground(QColor(128,0,0));
@@ -126,3 +125,49 @@ void ExpressSyntaxHighlighter::highlightBlock(const QString &text)
     }
     setCurrentBlockState(0);
 }
+
+/*  from Part 11:
+    // Express keyword list:
+    abstract aggregate alias array
+    as bag based_on begin
+    binary boolean by case
+    constant derive else end
+    end_alias end_case end_constant end_entity
+    end_function end_if end_local end_procedure
+    end_repeat end_rule end_schema end_subtype_constraint
+    end_type entity enumeration escape
+    extensible fixed for from
+    function generic generic_entity if
+    integer inverse list local
+    logical number of oneof
+    optional otherwise procedure query
+    real renamed reference repeat
+    return rule schema select
+    set skip string subtype
+    subtype constraint supertype then to
+    total_over type unique until
+    use var where while
+    with
+
+    // operators
+    and andor div in
+    like mod not or
+    xor
+
+    //constants
+    ? self const e pi
+    false true unknown
+
+    //functions
+    abs acos asin atan
+    blength cos exists exp
+    format hibound hiindex length
+    lobound log log2 log10
+    loindex nvl odd rolesof
+    sin sizeof sqrt tan
+    typeof usedin value value_in
+    value unique
+
+    // procedures
+    insert remove
+*/

@@ -28,7 +28,6 @@ ExpressTextEdit::ExpressTextEdit(Registry &registry, QWidget *parent)
     , m_Highlighter ( new ExpressSyntaxHighlighter(this->document()))
 {
     setMouseTracking(true);
-    connect ( this, SIGNAL(cursorPositionChanged()), this, SLOT(findExpressObject()));
 }
 
 void ExpressTextEdit::fillHighlighterWithTypes(const QStringList &list)
@@ -43,7 +42,6 @@ void ExpressTextEdit::fillHighlighterWithEntities(const QStringList &list)
 
 void ExpressTextEdit::mouseMoveEvent(QMouseEvent *e)
 {
-    cout << "ExpressTextEdit::mouseMoveEvent" << endl;
     QTextCursor cursor = cursorForPosition(e->pos());
     cursor.select(QTextCursor::WordUnderCursor);
     QString wordUnderCursor = cursor.selectedText();
@@ -65,6 +63,20 @@ void ExpressTextEdit::mouseMoveEvent(QMouseEvent *e)
 
 }
 
+void ExpressTextEdit::mouseDoubleClickEvent(QMouseEvent *e)
+{
+    QTextCursor cursor = textCursor();
+    cursor.select(QTextCursor::WordUnderCursor);
+    QString wordUnderCursor = cursor.selectedText();
+
+    const EntityDescriptor * entityDescriptor = m_Registry.FindEntity(wordUnderCursor.toAscii());
+    const TypeDescriptor * typeDescriptor = m_Registry.FindType(wordUnderCursor.toAscii());
+    if (entityDescriptor )
+        emit entityDoubleClicked(entityDescriptor);
+    else if(typeDescriptor)
+        emit typeDoubleClicked(typeDescriptor);
+}
+
 void ExpressTextEdit::setEntityDescriptor(const EntityDescriptor *entityDescriptor)
 {
     clear();
@@ -81,6 +93,7 @@ void ExpressTextEdit::setTypeDescriptor(const TypeDescriptor *typeDescriptor)
     setPlainText(text);
 }
 
+/*
 void ExpressTextEdit::findExpressObject()
 {
     QTextCursor cursor = textCursor();
@@ -96,3 +109,4 @@ void ExpressTextEdit::findExpressObject()
     else setToolTip(QString());
 
 }
+*/
