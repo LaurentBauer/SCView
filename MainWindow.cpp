@@ -1,5 +1,5 @@
-#include "MainWindow.h"
 #include "ui_MainWindow.h"
+#include "MainWindow.h"
 #include "SCLDockWidget.h"
 #include "ExpressViewDockWidget.h"
 #include "EntityTypeList.h"
