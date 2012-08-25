@@ -93,6 +93,7 @@ void ExpressTextEdit::setTypeDescriptor(const TypeDescriptor *typeDescriptor)
     setPlainText(text);
 }
 
+
 /*
 void ExpressTextEdit::findExpressObject()
 {
