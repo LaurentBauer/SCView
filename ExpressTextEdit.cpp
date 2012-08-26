@@ -71,43 +71,21 @@ void ExpressTextEdit::mouseDoubleClickEvent(QMouseEvent *e)
 
     const EntityDescriptor * entityDescriptor = m_Registry.FindEntity(wordUnderCursor.toAscii());
     const TypeDescriptor * typeDescriptor = m_Registry.FindType(wordUnderCursor.toAscii());
+
     if (entityDescriptor )
-        emit entityDoubleClicked(entityDescriptor);
+        emit descriptorDoubleClicked(entityDescriptor);
     else if(typeDescriptor)
-        emit typeDoubleClicked(typeDescriptor);
+        emit descriptorDoubleClicked(typeDescriptor);
 }
 
-void ExpressTextEdit::setEntityDescriptor(const EntityDescriptor *entityDescriptor)
+void ExpressTextEdit::setDescriptor(const TypeDescriptor *typeDescriptor)
 {
     clear();
-    std::string str;
-    QString text(entityDescriptor->GenerateExpress(str));
-    setPlainText(text);
-}
-
-void ExpressTextEdit::setTypeDescriptor(const TypeDescriptor *typeDescriptor)
-{
-    clear();
-    std::string str;
-    QString text(typeDescriptor->GenerateExpress(str));
-    setPlainText(text);
-}
-
-
-/*
-void ExpressTextEdit::findExpressObject()
-{
-    QTextCursor cursor = textCursor();
-    cursor.select(QTextCursor::WordUnderCursor);
-    QString wordUnderCursor = cursor.selectedText();
-
-    const EntityDescriptor * entityDescriptor = m_Registry.FindEntity(wordUnderCursor.toAscii());
-    if (entityDescriptor )
+    if (typeDescriptor)
     {
         std::string str;
-        setToolTip(entityDescriptor->GenerateExpress(str));
+        QString text(typeDescriptor->GenerateExpress(str));
+        setPlainText(text);
     }
-    else setToolTip(QString());
-
 }
-*/
+

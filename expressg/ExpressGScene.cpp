@@ -1,4 +1,4 @@
-/*  This file is part of [To be named], a STEP-Express viewer
+/*  This file is part of SCView, a STEP-Express viewer
     Copyright (C) 2012 Laurent Bauer lahoraent@hotmail.com
 
     This library is free software; you can redistribute it and/or
@@ -29,22 +29,28 @@ ExpressGScene::ExpressGScene(QObject *parent) :
 {
 }
 
-QGraphicsItem *ExpressGScene::setEntityDescriptor(const EntityDescriptor *ed)
+QGraphicsItem *ExpressGScene::setDescriptor(const TypeDescriptor *td)
 {
     clear();
-    EntityItem * edItem = new EntityItem(ed);
-    edItem->setPos(0.0,0.0);
-    addItem(edItem);
-    return edItem;
-}
-
-QGraphicsItem *ExpressGScene::setTypeDescriptor(const TypeDescriptor *td)
-{
-    clear();
-    TypeItem * typeItem = new TypeItem(td);
-    typeItem->setPos(0.0,0.0);
-    addItem(typeItem);
-    return typeItem;
+    if (td)
+    {
+        const EntityDescriptor *ed = dynamic_cast <const EntityDescriptor *>(td);
+        if (ed)
+        {
+            EntityItem * edItem = new EntityItem(ed);
+            edItem->setPos(0.0,0.0);
+            addItem(edItem);
+            return edItem;
+        }
+        else
+        {
+            TypeItem * typeItem = new TypeItem(td);
+            typeItem->setPos(0.0,0.0);
+            addItem(typeItem);
+            return typeItem;
+        }
+    }
+    else return 0;
 }
 
 void ExpressGScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *mouseEvent)
@@ -55,9 +61,9 @@ void ExpressGScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *mouseEvent)
         EntityItem * entityItem;
         TypeItem * typeItem;
         if ( (entityItem = qgraphicsitem_cast <EntityItem *> (selItem) ) )
-            emit entityDescriptorDoubleClicked( entityItem->entityDescriptor() );
+            emit descriptorDoubleClicked    ( entityItem->entityDescriptor() );
         else if ( ( typeItem = qgraphicsitem_cast <TypeItem *> (selItem) ) )
-            emit typeDescriptorDoubleClicked( typeItem->typeDescriptor() );
+            emit descriptorDoubleClicked( typeItem->typeDescriptor() );
     }
 }
 

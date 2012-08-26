@@ -17,20 +17,32 @@
     Boston, MA 02110-1301, USA.
 */
 
-#include <QtGui/QApplication>
+#include "NavigateCommand.h"
 #include "MainWindow.h"
-#include "manhattanstyle.h"
+#include <ExpDict.h>
 
-int main(int argc, char *argv[])
+#include <iostream>
+using namespace std;
+
+NavigateCommand::NavigateCommand(MainWindow *controler, const TypeDescriptor *oldDescriptor,  const TypeDescriptor *newDescriptor, QUndoCommand *parent)
+    : QUndoCommand(parent)
+    , m_Controler(controler)
+    , m_OldDescriptor(oldDescriptor)
+    , m_NewDescriptor(newDescriptor)
 {
-    QApplication a(argc, argv);
-    QString name = QApplication::style()->objectName();
-    QApplication::setStyle(new ManhattanStyle(name));
-    a.setApplicationName("SCView");
-    a.setApplicationVersion("V0.1");
-    a.setOrganizationName("To_be_named.org");
-    MainWindow w;
-    w.show();
-    
-    return a.exec();
 }
+
+void NavigateCommand::undo()
+{
+    m_Controler->setDescriptor(m_OldDescriptor);
+}
+
+void NavigateCommand::redo()
+{
+    m_Controler->setDescriptor(m_NewDescriptor);
+}
+
+
+
+
+

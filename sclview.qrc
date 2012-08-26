@@ -7,5 +7,7 @@
         <file alias="WhiteRect">icones/WhiteRect.png</file>
         <file alias="Find">icones/find.png</file>
         <file alias="Express">icones/Express.png</file>
+        <file alias="Redo">icones/redo.png</file>
+        <file alias="Undo">icones/undo.png</file>
     </qresource>
 </RCC>

@@ -17,20 +17,23 @@
     Boston, MA 02110-1301, USA.
 */
 
-#include <QtGui/QApplication>
-#include "MainWindow.h"
-#include "manhattanstyle.h"
+#ifndef NAVIGATECOMMAND_H
+#define NAVIGATECOMMAND_H
 
-int main(int argc, char *argv[])
+#include <QUndoCommand>
+class TypeDescriptor;
+class MainWindow;
+
+class NavigateCommand : public QUndoCommand
 {
-    QApplication a(argc, argv);
-    QString name = QApplication::style()->objectName();
-    QApplication::setStyle(new ManhattanStyle(name));
-    a.setApplicationName("SCView");
-    a.setApplicationVersion("V0.1");
-    a.setOrganizationName("To_be_named.org");
-    MainWindow w;
-    w.show();
-    
-    return a.exec();
-}
+public:
+    NavigateCommand(MainWindow *controler, const TypeDescriptor *oldDescriptor,  const TypeDescriptor *newDescriptor, QUndoCommand *parent=0);
+    void undo();
+    void redo();
+
+private:
+    MainWindow * m_Controler;
+    const TypeDescriptor *m_OldDescriptor, *m_NewDescriptor;
+};
+
+#endif // NAVIGATECOMMAND_H

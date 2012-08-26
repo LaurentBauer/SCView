@@ -1,4 +1,4 @@
-/*  This file is part of [To be named], a STEP-Express viewer
+/*  This file is part of SCView, a STEP-Express viewer
     Copyright (C) 2012 Laurent Bauer lahoraent@hotmail.com
 
     This library is free software; you can redistribute it and/or
@@ -29,16 +29,15 @@ class ExpressGScene : public QGraphicsScene
     Q_OBJECT
 public:
     explicit ExpressGScene(QObject *parent = 0);
-    
-    QGraphicsItem* setEntityDescriptor(const EntityDescriptor *ed);
-    QGraphicsItem* setTypeDescriptor(const TypeDescriptor *td);
+    QGraphicsItem* setDescriptor(const TypeDescriptor *td);
 
 protected:
     virtual void mouseDoubleClickEvent ( QGraphicsSceneMouseEvent * mouseEvent );
     // virtual mousePressEvent(QGraphicsSceneMouseEvent *event);
+
 signals:
-    void entityDescriptorDoubleClicked( const EntityDescriptor * );
-    void typeDescriptorDoubleClicked( const TypeDescriptor * );
+    void descriptorDoubleClicked( const TypeDescriptor * );
+
 public slots:
     
 private:

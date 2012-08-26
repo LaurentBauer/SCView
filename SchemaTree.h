@@ -1,4 +1,4 @@
-/*  This file is part of [To be named], a STEP-Express viewer
+/*  This file is part of SCView, a STEP-Express viewer
     Copyright (C) 2012 Laurent Bauer lahoraent@hotmail.com
 
     This library is free software; you can redistribute it and/or
@@ -33,19 +33,18 @@ class SchemaTree : public QTreeWidget
 public:
     explicit SchemaTree(Registry& registry, QWidget *parent = 0);
     void fillStringListModel(QStringListModel * model);
+
 signals:
-    void selectedEntityChanged(const EntityDescriptor *);
-    void selectedTypeChanged(const TypeDescriptor *);
+    void selectedDescriptorChanged(const TypeDescriptor *);
 
 public slots:
     void findSelection();
-    void select( const EntityDescriptor *ed);
     void select( const TypeDescriptor *td);
     const QString getSchemaName();
 
 private:
     Registry &m_Registry;
-    QHash <const void*, QTreeWidgetItem*> m_EntityDescriptorToItem;
+    QHash <const void*, QTreeWidgetItem*> m_DescriptorToItem;
     QIcon m_EntityIcon;
     QIcon m_TypeIcon;
 };

@@ -1,3 +1,22 @@
+/*  This file is part of SCView, a STEP-Express viewer
+    Copyright (C) 2012 Laurent Bauer lahoraent@hotmail.com
+
+    This library is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Library General Public
+    License as published by the Free Software Foundation; version 2
+    of the License.
+
+    This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Library General Public License for more details.
+
+    You should have received a copy of the GNU Library General Public License
+    along with this library; see the file COPYING.LIB.  If not, write to
+    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+    Boston, MA 02110-1301, USA.
+*/
+
 #include "ui_MainWindow.h"
 #include "MainWindow.h"
 #include "SCLDockWidget.h"
@@ -5,6 +24,8 @@
 #include "SchemaTree.h"
 #include "expressg/ExpressGView.h"
 #include "ExpressTextEdit.h"
+#include "NavigateCommand.h"
+#include <QUndoStack>
 #include <QToolButton>
 #include <QLineEdit>
 #include <QLabel>
@@ -15,7 +36,9 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+    , m_UndoStack(new QUndoStack(this))
     , m_Registry( SchemaInit )
+    , m_Current(0)
     , m_SchemaTree ( new SchemaTree(m_Registry) )
     , m_SCLDockWidget (new SCLDockWidget(m_SchemaTree, this) )
     , m_ExpressViewDockWidget( new ExpressViewDockWidget(this))
@@ -30,24 +53,28 @@ MainWindow::MainWindow(QWidget *parent)
     buildView();
     setCentralWidget(m_ExpressGView);
 
-    connect(m_ExpressGView, SIGNAL(entityDescriptorDoubleClicked(const EntityDescriptor*))
-            , this, SLOT(setEntity(const EntityDescriptor*)));
-    connect(m_SchemaTree, SIGNAL(selectedEntityChanged(const EntityDescriptor*))
-            , this, SLOT(setEntity(const EntityDescriptor*)));
-    connect(m_ExpressTextEdit, SIGNAL(entityDoubleClicked(const EntityDescriptor*))
-            , this, SLOT(setEntity(const EntityDescriptor*)));
-
-    connect(m_ExpressGView, SIGNAL(typeDescriptorDoubleClicked(const TypeDescriptor*))
-            , this, SLOT(setType(const TypeDescriptor*)));
-    connect(m_SchemaTree, SIGNAL(selectedTypeChanged(const TypeDescriptor*))
-            , this, SLOT(setType(const TypeDescriptor*)));
-    connect(m_ExpressTextEdit, SIGNAL(typeDoubleClicked(const TypeDescriptor*))
-            , this, SLOT(setType(const TypeDescriptor*)));
+    connect(m_ExpressGView, SIGNAL(descriptorDoubleClicked(const TypeDescriptor*))
+            , this, SLOT(setDescriptorCommand(const TypeDescriptor*)));
+    connect(m_SchemaTree, SIGNAL(selectedDescriptorChanged(const TypeDescriptor*))
+            , this, SLOT(setDescriptorCommand(const TypeDescriptor*)));
+    connect(m_ExpressTextEdit, SIGNAL(descriptorDoubleClicked(const TypeDescriptor*))
+            , this, SLOT(setDescriptorCommand(const TypeDescriptor*)));
 
     connect(ui->actionFind, SIGNAL(triggered()), this, SLOT (startSearch()));
 
     m_ExpressTextEdit->fillHighlighterWithTypes( typeList());
     m_ExpressTextEdit->fillHighlighterWithEntities( entityList());
+
+    QAction * undoAction = m_UndoStack->createUndoAction(this);
+    QAction * redoAction = m_UndoStack->createRedoAction(this);
+    undoAction->setIcon(QIcon(":Undo"));
+    redoAction->setIcon(QIcon(":Redo"));
+    undoAction->setShortcut(QKeySequence(tr("Ctrl+Z")));
+    redoAction->setShortcut(QKeySequence(tr("Ctrl+Y")));
+    ui->mainToolBar->addAction(undoAction);
+    ui->mainToolBar->addAction(redoAction);
+    ui->menuEdit->insertAction(ui->actionFind,redoAction);
+    ui->menuEdit->insertAction(redoAction,undoAction);
 }
 
 MainWindow::~MainWindow()
@@ -75,6 +102,13 @@ QStringList MainWindow::entityList()
     return list;
 }
 
+void MainWindow::setDescriptor(const TypeDescriptor *descriptor)
+{
+    m_SchemaTree->select(descriptor);
+    m_ExpressGView->setDescriptor(descriptor);
+    m_ExpressTextEdit->setDescriptor(descriptor);
+}
+
 void MainWindow::startSearch()
 {
     m_SearchLineEdit->setFocus();
@@ -94,23 +128,12 @@ void MainWindow::selectSearchResult(QString highlighted)
     }
 }
 
-void MainWindow::setEntity(const EntityDescriptor *entityDescriptor)
+void MainWindow::setDescriptorCommand(const TypeDescriptor *descriptor)
 {
-    QObject * sender = QObject::sender();
-    if (sender!=m_SchemaTree)
-        m_SchemaTree->select(entityDescriptor);
-    m_ExpressGView->setEntityDescriptor(entityDescriptor);
-    m_ExpressTextEdit->setEntityDescriptor(entityDescriptor);
-}
 
-void MainWindow::setType(const TypeDescriptor *typeDescriptor)
-{
-    QObject * sender = QObject::sender();
-    if (sender!=m_SchemaTree)
-        m_SchemaTree->select(typeDescriptor);
-    m_ExpressGView->setTypeDescriptor(typeDescriptor);
-    m_ExpressTextEdit->setTypeDescriptor(typeDescriptor);
-
+    NavigateCommand * navigateCommand = new NavigateCommand(this, m_Current, descriptor);
+    m_UndoStack->push(navigateCommand);
+    m_Current = descriptor;
 }
 
 void MainWindow::buildView()

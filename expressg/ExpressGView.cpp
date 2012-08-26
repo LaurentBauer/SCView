@@ -1,4 +1,4 @@
-/*  This file is part of [To be named], a STEP-Express viewer
+/*  This file is part of SCView, a STEP-Express viewer
     Copyright (C) 2012 Laurent Bauer lahoraent@hotmail.com
 
     This library is free software; you can redistribute it and/or
@@ -36,20 +36,13 @@ ExpressGView::ExpressGView(QWidget *parent)
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-    connect (&m_Scene, SIGNAL( entityDescriptorDoubleClicked( const EntityDescriptor * ) ), this, SIGNAL(entityDescriptorDoubleClicked(const EntityDescriptor*)));
-    connect (&m_Scene, SIGNAL( typeDescriptorDoubleClicked( const TypeDescriptor * ) ), this, SIGNAL(typeDescriptorDoubleClicked(const TypeDescriptor*)));
+    connect (&m_Scene, SIGNAL( descriptorDoubleClicked( const TypeDescriptor * ) ), this, SIGNAL(descriptorDoubleClicked(const TypeDescriptor*)));
 
 }
 
-void ExpressGView::setEntityDescriptor(const EntityDescriptor *ed)
+void ExpressGView::setDescriptor(const TypeDescriptor *td)
 {
-    m_Scene.setEntityDescriptor(ed);    
-    reframe();
-}
-
-void ExpressGView::setTypeDescriptor(const TypeDescriptor *td)
-{
-    m_Scene.setTypeDescriptor(td);
+    m_Scene.setDescriptor(td);
     reframe();
 }
 

@@ -33,6 +33,7 @@ class QLineEdit;
 class QStringListModel;
 class ExpressViewDockWidget;
 class ExpressTextEdit;
+class QUndoStack;
 
 namespace Ui {
 class MainWindow;
@@ -47,18 +48,20 @@ public:
     ~MainWindow();
     QStringList typeList();
     QStringList entityList();
+    void setDescriptor(const TypeDescriptor *descriptor);
 
 private slots:
     void startSearch();
     void selectSearchResult(QString highlighted);
-    void setEntity(const EntityDescriptor * entityDescriptor);
-    void setType(const TypeDescriptor * typeDescriptor);
+    void setDescriptorCommand(const TypeDescriptor * descriptor);
 
 private:
     void buildView();
 private:
     Ui::MainWindow *ui;
+    QUndoStack * m_UndoStack;
     Registry m_Registry;
+    const TypeDescriptor * m_Current;
     SchemaTree * m_SchemaTree;
     SCLDockWidget * m_SCLDockWidget;
     ExpressViewDockWidget * m_ExpressViewDockWidget;

@@ -44,7 +44,8 @@ SOURCES += main.cpp\
     ExpressViewDockWidget.cpp \
     ExpressTextEdit.cpp \
     ExpressSyntaxHighlighter.cpp \
-    SchemaTree.cpp
+    SchemaTree.cpp \
+    NavigateCommand.cpp
 
 HEADERS  += MainWindow.h \
     EntityDescriptorWidget.h \
@@ -60,7 +61,8 @@ HEADERS  += MainWindow.h \
     ExpressViewDockWidget.h \
     ExpressTextEdit.h \
     ExpressSyntaxHighlighter.h \
-    SchemaTree.h
+    SchemaTree.h \
+    NavigateCommand.h
 
 FORMS    += MainWindow.ui \
     EntityDescriptorWidget.ui

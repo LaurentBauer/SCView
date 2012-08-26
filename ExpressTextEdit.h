@@ -40,13 +40,10 @@ protected:
     virtual void mouseDoubleClickEvent(QMouseEvent *e);
 
 signals:
-    void entityDoubleClicked(const EntityDescriptor *);
-    void typeDoubleClicked(const TypeDescriptor *);
+    void descriptorDoubleClicked(const TypeDescriptor *);
 
 public slots:
-    void setEntityDescriptor(const EntityDescriptor * entityDescriptor);
-    void setTypeDescriptor(const TypeDescriptor * typeDescriptor);
-//    void findExpressObject();
+    void setDescriptor(const TypeDescriptor * typeDescriptor);
 
 private:
     Registry &m_Registry;

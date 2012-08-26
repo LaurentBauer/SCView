@@ -1,4 +1,4 @@
-/*  This file is part of [To be named], a STEP-Express viewer
+/*  This file is part of SCView, a STEP-Express viewer
     Copyright (C) 2012 Laurent Bauer lahoraent@hotmail.com
 
     This library is free software; you can redistribute it and/or
@@ -16,7 +16,6 @@
     the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
     Boston, MA 02110-1301, USA.
 */
-
 
 #ifndef EXPRESSGVIEW_H
 #define EXPRESSGVIEW_H
@@ -37,12 +36,10 @@ protected:
     //virtual void mouseMoveEvent(QMouseEvent *event);
 
 signals:
-    void entityDescriptorDoubleClicked( const EntityDescriptor * );
-    void typeDescriptorDoubleClicked( const TypeDescriptor * );
+    void descriptorDoubleClicked( const TypeDescriptor * );
 
 public slots:
-    void setEntityDescriptor (const EntityDescriptor * ed);
-    void setTypeDescriptor (const TypeDescriptor * td);
+    void setDescriptor (const TypeDescriptor * td);
 
 private:
     void reframe();
