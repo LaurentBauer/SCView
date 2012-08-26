@@ -27,11 +27,11 @@
 class QStringListModel;
 
 // EntityTypeList : actually is the EntityDescriptorList... should be renamed
-class EntityTypeTree : public QTreeWidget
+class SchemaTree : public QTreeWidget
 {
     Q_OBJECT
 public:
-    explicit EntityTypeTree(Registry& registry, QWidget *parent = 0);
+    explicit SchemaTree(Registry& registry, QWidget *parent = 0);
     void fillStringListModel(QStringListModel * model);
 signals:
     void selectedEntityChanged(const EntityDescriptor *);

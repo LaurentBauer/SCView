@@ -22,13 +22,13 @@
 
 #include <QDockWidget>
 class QToolBar;
-class EntityTypeTree;
+class SchemaTree;
 
 class SCLDockWidget : public QDockWidget
 {
     Q_OBJECT
 public:
-    explicit SCLDockWidget(EntityTypeTree * tree, QWidget *parent = 0);
+    explicit SCLDockWidget(SchemaTree * tree, QWidget *parent = 0);
     
 signals:
     

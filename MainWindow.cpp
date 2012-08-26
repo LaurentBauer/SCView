@@ -2,7 +2,7 @@
 #include "MainWindow.h"
 #include "SCLDockWidget.h"
 #include "ExpressViewDockWidget.h"
-#include "EntityTypeList.h"
+#include "SchemaTree.h"
 #include "expressg/ExpressGView.h"
 #include "ExpressTextEdit.h"
 #include <QToolButton>
@@ -16,8 +16,8 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
     , m_Registry( SchemaInit )
-    , m_EntityTypeTree ( new EntityTypeTree(m_Registry) )
-    , m_SCLDockWidget (new SCLDockWidget(m_EntityTypeTree, this) )
+    , m_SchemaTree ( new SchemaTree(m_Registry) )
+    , m_SCLDockWidget (new SCLDockWidget(m_SchemaTree, this) )
     , m_ExpressViewDockWidget( new ExpressViewDockWidget(this))
     , m_ExpressTextEdit(new ExpressTextEdit(m_Registry, m_ExpressViewDockWidget))
     , m_ExpressGView (new ExpressGView(this))
@@ -25,21 +25,21 @@ MainWindow::MainWindow(QWidget *parent)
     , m_SearchLineEdit(0)
 {
     ui->setupUi(this);
-    QString title = QApplication::applicationName()+ ": " + m_EntityTypeTree->getSchemaName();
+    QString title = QApplication::applicationName()+ ": " + m_SchemaTree->getSchemaName();
     setWindowTitle( title );
     buildView();
     setCentralWidget(m_ExpressGView);
 
     connect(m_ExpressGView, SIGNAL(entityDescriptorDoubleClicked(const EntityDescriptor*))
             , this, SLOT(setEntity(const EntityDescriptor*)));
-    connect(m_EntityTypeTree, SIGNAL(selectedEntityChanged(const EntityDescriptor*))
+    connect(m_SchemaTree, SIGNAL(selectedEntityChanged(const EntityDescriptor*))
             , this, SLOT(setEntity(const EntityDescriptor*)));
     connect(m_ExpressTextEdit, SIGNAL(entityDoubleClicked(const EntityDescriptor*))
             , this, SLOT(setEntity(const EntityDescriptor*)));
 
     connect(m_ExpressGView, SIGNAL(typeDescriptorDoubleClicked(const TypeDescriptor*))
             , this, SLOT(setType(const TypeDescriptor*)));
-    connect(m_EntityTypeTree, SIGNAL(selectedTypeChanged(const TypeDescriptor*))
+    connect(m_SchemaTree, SIGNAL(selectedTypeChanged(const TypeDescriptor*))
             , this, SLOT(setType(const TypeDescriptor*)));
     connect(m_ExpressTextEdit, SIGNAL(typeDoubleClicked(const TypeDescriptor*))
             , this, SLOT(setType(const TypeDescriptor*)));
@@ -83,22 +83,22 @@ void MainWindow::startSearch()
 
 void MainWindow::selectSearchResult(QString highlighted)
 {
-    QList<QTreeWidgetItem * > results = m_EntityTypeTree->findItems(highlighted, Qt::MatchFixedString |Qt::MatchCaseSensitive| Qt::MatchRecursive);
+    QList<QTreeWidgetItem * > results = m_SchemaTree->findItems(highlighted, Qt::MatchFixedString |Qt::MatchCaseSensitive| Qt::MatchRecursive);
     if (!results.isEmpty())
     {
         QTreeWidgetItem * item = results.first();
-        m_EntityTypeTree->clearSelection();
+        m_SchemaTree->clearSelection();
         item->setSelected(true);
-        m_EntityTypeTree->expandItem(item);
-        m_EntityTypeTree->scrollToItem(item);
+        m_SchemaTree->expandItem(item);
+        m_SchemaTree->scrollToItem(item);
     }
 }
 
 void MainWindow::setEntity(const EntityDescriptor *entityDescriptor)
 {
     QObject * sender = QObject::sender();
-    if (sender!=m_EntityTypeTree)
-        m_EntityTypeTree->select(entityDescriptor);
+    if (sender!=m_SchemaTree)
+        m_SchemaTree->select(entityDescriptor);
     m_ExpressGView->setEntityDescriptor(entityDescriptor);
     m_ExpressTextEdit->setEntityDescriptor(entityDescriptor);
 }
@@ -106,8 +106,8 @@ void MainWindow::setEntity(const EntityDescriptor *entityDescriptor)
 void MainWindow::setType(const TypeDescriptor *typeDescriptor)
 {
     QObject * sender = QObject::sender();
-    if (sender!=m_EntityTypeTree)
-        m_EntityTypeTree->select(typeDescriptor);
+    if (sender!=m_SchemaTree)
+        m_SchemaTree->select(typeDescriptor);
     m_ExpressGView->setTypeDescriptor(typeDescriptor);
     m_ExpressTextEdit->setTypeDescriptor(typeDescriptor);
 
@@ -134,7 +134,7 @@ void MainWindow::buildView()
     searchWidget->setLayout(layout);
     ui->menuBar->setCornerWidget(searchWidget);
 
-    m_EntityTypeTree->fillStringListModel(m_StringListModel);
+    m_SchemaTree->fillStringListModel(m_StringListModel);
     m_SearchLineEdit->setText("Search");
     QCompleter * completer = new QCompleter(m_StringListModel);
     completer->setMaxVisibleItems(10);

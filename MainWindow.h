@@ -25,7 +25,7 @@ extern void SchemaInit( class Registry & );
 #include <schema.h>
 
 class SCLDockWidget;
-class EntityTypeTree;
+class SchemaTree;
 class EntityDescriptorWidget;
 class ExpressGView;
 class ExpressGScene;
@@ -59,7 +59,7 @@ private:
 private:
     Ui::MainWindow *ui;
     Registry m_Registry;
-    EntityTypeTree * m_EntityTypeTree;
+    SchemaTree * m_SchemaTree;
     SCLDockWidget * m_SCLDockWidget;
     ExpressViewDockWidget * m_ExpressViewDockWidget;
     ExpressTextEdit * m_ExpressTextEdit;

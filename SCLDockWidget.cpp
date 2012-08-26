@@ -20,9 +20,9 @@
 #include "SCLDockWidget.h"
 #include <QToolBar>
 #include <QAction>
-#include "EntityTypeList.h"
+#include "SchemaTree.h"
 
-SCLDockWidget::SCLDockWidget(EntityTypeTree *tree, QWidget *parent)
+SCLDockWidget::SCLDockWidget(SchemaTree *tree, QWidget *parent)
     : QDockWidget ("Tree View", parent)
     , m_ToolBar (new QToolBar(this))
 {

@@ -17,7 +17,7 @@
     Boston, MA 02110-1301, USA.
 */
 
-#include "EntityTypeList.h"
+#include "SchemaTree.h"
 #include <QStringListModel>
 #include <iostream>
 using namespace std;
@@ -28,7 +28,7 @@ enum itemType {
     };
 
 
-EntityTypeTree::EntityTypeTree(Registry &registry, QWidget *parent)
+SchemaTree::SchemaTree(Registry &registry, QWidget *parent)
     : QTreeWidget(parent)
     , m_Registry( registry )
     , m_EntityIcon(":/Entity")
@@ -84,7 +84,7 @@ EntityTypeTree::EntityTypeTree(Registry &registry, QWidget *parent)
     connect (this, SIGNAL(itemSelectionChanged()), this, SLOT(findSelection()));
 }
 
-void EntityTypeTree::fillStringListModel(QStringListModel *model)
+void SchemaTree::fillStringListModel(QStringListModel *model)
 {
     QHash <const void*, QTreeWidgetItem*>::const_iterator it ;
     QStringList list;
@@ -93,7 +93,7 @@ void EntityTypeTree::fillStringListModel(QStringListModel *model)
     model->setStringList(list);
 }
 
-void EntityTypeTree::findSelection()
+void SchemaTree::findSelection()
 {
     if (selectedItems().count()>0)
     {
@@ -115,7 +115,7 @@ void EntityTypeTree::findSelection()
     }
 }
 
-void EntityTypeTree::select(const EntityDescriptor *ed)
+void SchemaTree::select(const EntityDescriptor *ed)
 {
     blockSignals(true);
     if (m_EntityDescriptorToItem.contains(ed))
@@ -129,7 +129,7 @@ void EntityTypeTree::select(const EntityDescriptor *ed)
     blockSignals(false);
 }
 
-void EntityTypeTree::select(const TypeDescriptor *td)
+void SchemaTree::select(const TypeDescriptor *td)
 {
     if (m_EntityDescriptorToItem.contains(td))
     {
@@ -141,7 +141,7 @@ void EntityTypeTree::select(const TypeDescriptor *td)
     }
 }
 
-const QString EntityTypeTree::getSchemaName() {
+const QString SchemaTree::getSchemaName() {
     QString str;
     m_Registry.ResetSchemas();
     const Schema * sc = m_Registry.NextSchema();

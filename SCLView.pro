@@ -27,8 +27,6 @@ INCLUDEPATH += C:/prog/STEP/SCL0-5/ap214e3/AP214E3_2010 \
 
 SOURCES += main.cpp\
         MainWindow.cpp \
-    SchemaModel.cpp \
-    EntityTypeList.cpp \
     EntityDescriptorWidget.cpp \
     manhattanstyle.cpp \
     styleanimator.cpp \
@@ -41,12 +39,10 @@ SOURCES += main.cpp\
     expressg/ExpressgRectItem.cpp \
     ExpressViewDockWidget.cpp \
     ExpressTextEdit.cpp \
-    ExpressSyntaxHighlighter.cpp
-#    TypeDescriptorListWidget.cpp
+    ExpressSyntaxHighlighter.cpp \
+    SchemaTree.cpp
 
 HEADERS  += MainWindow.h \
-    SchemaModel.h \
-    EntityTypeList.h \
     EntityDescriptorWidget.h \
     manhattanstyle.h \
     styleanimator.h \
@@ -59,8 +55,8 @@ HEADERS  += MainWindow.h \
     expressg/ExpressgRectItem.h \
     ExpressViewDockWidget.h \
     ExpressTextEdit.h \
-    ExpressSyntaxHighlighter.h
-#    TypeDescriptorListWidget.h
+    ExpressSyntaxHighlighter.h \
+    SchemaTree.h
 
 FORMS    += MainWindow.ui \
     EntityDescriptorWidget.ui
