@@ -9,20 +9,24 @@ QT       += core gui opengl
 TARGET = SCLView
 TEMPLATE = app
 
-win32:LIBS += C:/prog/STEP/SCL0-5/ap214e3/bin/libsdai_AP214E3_2010.dll \
-    C:/prog/STEP/SCL0-5/ap214e3/bin/libstepcore.dll \
-    C:/prog/STEP/SCL0-5/ap214e3/bin/libstepdai.dll \
-    C:/prog/STEP/SCL0-5/ap214e3/bin/libsteputils.dll \
-    C:/prog/STEP/SCL0-5/ap214e3/bin/libexpress.dll \
-    C:/prog/STEP/SCL0-5/ap214e3/bin/libstepeditor.dll
+STEPCODE_DIR = C:/prog/STEP/SCL0-5
+STEPCODE_BUILD_DIR = C:/prog/STEP/SCL0-5/ap214e3
 
-INCLUDEPATH += C:/prog/STEP/SCL0-5/ap214e3/AP214E3_2010 \
-    C:/prog/STEP/SCL0-5/ap214e3/include \
-    C:/prog/STEP/SCL0-5/include \
-    C:/prog/STEP/SCL0-5/src/cleditor \
-    C:/prog/STEP/SCL0-5/src/clutils \
-    C:/prog/STEP/SCL0-5/src/clstepcore \
-    C:/prog/STEP/SCL0-5/src/cldai
+
+win32:LIBS += $${STEPCODE_BUILD_DIR}/bin/libsdai_AP214E3_2010.dll \
+    $${STEPCODE_BUILD_DIR}/bin/libstepcore.dll \
+    $${STEPCODE_BUILD_DIR}/bin/libstepdai.dll \
+    $${STEPCODE_BUILD_DIR}/bin/libsteputils.dll \
+    $${STEPCODE_BUILD_DIR}/bin/libexpress.dll \
+    $${STEPCODE_BUILD_DIR}/bin/libstepeditor.dll
+
+INCLUDEPATH += $${STEPCODE_BUILD_DIR}/AP214E3_2010 \
+    $${STEPCODE_BUILD_DIR}/include \
+    $${STEPCODE_DIR}/include \
+    $${STEPCODE_DIR}/src/cleditor \
+    $${STEPCODE_DIR}/src/clutils \
+    $${STEPCODE_DIR}/src/clstepcore \
+    $${STEPCODE_DIR}/src/cldai
 
 
 SOURCES += main.cpp\
