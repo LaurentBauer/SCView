@@ -61,7 +61,7 @@ QT4_ADD_RESOURCES( RESOURCE_SRCS ${RESOURCE_FILES} )
 # app sources and headers
 set( SRCS
     EntityDescriptorWidget.cpp     expressg/ExpressGView.cpp  manhattanstyle.cpp
-    EntityTypeList.cpp             expressg/LinkItem.cpp      SchemaModel.cpp
+    SchemaTree.cpp                 expressg/LinkItem.cpp
     expressg/EntityItem.cpp        expressg/TypeItem.cpp      SCLDockWidget.cpp
     expressg/ExpressgRectItem.cpp  main.cpp                   styleanimator.cpp
     expressg/ExpressGScene.cpp     MainWindow.cpp             ExpressViewDockWidget.cpp
@@ -69,8 +69,8 @@ set( SRCS
 )
 
 set( HDRS
-    EntityDescriptorWidget.h     expressg/ExpressGView.h  SchemaModel.h
-    EntityTypeList.h             expressg/LinkItem.h      SCLDockWidget.h
+    EntityDescriptorWidget.h     expressg/ExpressGView.h
+    SchemaTree.h                 expressg/LinkItem.h      SCLDockWidget.h
     expressg/EntityItem.h        expressg/TypeItem.h      styleanimator.h
     expressg/ExpressgRectItem.h  MainWindow.h
     expressg/ExpressGScene.h     manhattanstyle.h 
