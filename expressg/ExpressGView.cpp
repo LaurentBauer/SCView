@@ -42,32 +42,15 @@ ExpressGView::ExpressGView(QWidget *parent)
 
 void ExpressGView::setDescriptor(const TypeDescriptor *td)
 {
-    m_Scene.setDescriptor(td);
-    reframe();
+    reframeOn( m_Scene.setDescriptor(td) );
 }
 
-void ExpressGView::reframe()
+void ExpressGView::reframeOn(QGraphicsItem * rootItem)
 {
-    // reframe on viewport
-    // not working as i'd like...
-    qreal dx, dy;
-    if (viewport()->width() < m_Scene.sceneRect().width() )
-    {
-        qreal freeX = 0.5*( viewport()->width() - m_Scene.sceneRect().width() );
-        dx = freeX-m_Scene.sceneRect().x();
-    }
-    else dx = 50.0-m_Scene.sceneRect().width()*0.5; // 50 = left margin
-
-    if (viewport()->height() < m_Scene.sceneRect().height() )
-    {
-        qreal freeY = 0.5*( viewport()->height() - m_Scene.sceneRect().height() );
-        dy = freeY-m_Scene.sceneRect().y();
-    }
-    else dy = 50.0-m_Scene.sceneRect().y(); // 50 = top margin
-    resetTransform();
-    translate(dx, dy);
-
-    // then we "enlarge" the scene, to allow more scrolling space
+    // first we "enlarge" the scene, to allow more scrolling space
     const QRectF itemsRect = m_Scene.itemsBoundingRect();
-    m_Scene.setSceneRect( itemsRect.x()-itemsRect.width()*0.5, itemsRect.y()-height()*0.5, 2.0*itemsRect.width(), itemsRect.height()+height() );
+    m_Scene.setSceneRect( itemsRect.x()-itemsRect.width()*0.5, itemsRect.y()-itemsRect.height()*0.5, 2.0*itemsRect.width(), 2.0*itemsRect.height() );
+
+    if (rootItem)
+        ensureVisible(rootItem);
 }

@@ -42,7 +42,7 @@ public slots:
     void setDescriptor (const TypeDescriptor * td);
 
 private:
-    void reframe();
+    void reframeOn(QGraphicsItem *rootItem);
 
 private:
     ExpressGScene m_Scene;
