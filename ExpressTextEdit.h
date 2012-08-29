@@ -37,13 +37,19 @@ public:
 
 protected:
     virtual void mouseMoveEvent(QMouseEvent *e);
+    virtual void mousePressEvent(QMouseEvent *e);
     virtual void mouseDoubleClickEvent(QMouseEvent *e);
+    virtual void leaveEvent(QEvent *e);
 
 signals:
     void descriptorDoubleClicked(const TypeDescriptor *);
 
 public slots:
     void setDescriptor(const TypeDescriptor * typeDescriptor);
+
+private:
+    void navigate(QMouseEvent *e);
+
 
 private:
     Registry &m_Registry;

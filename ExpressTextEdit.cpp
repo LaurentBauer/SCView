@@ -21,6 +21,7 @@
 #include "ExpressSyntaxHighlighter.h"
 #include <ExpDict.h>
 #include <QMouseEvent>
+#include <QApplication>
 
 ExpressTextEdit::ExpressTextEdit(Registry &registry, QWidget *parent)
     : QTextEdit(parent)
@@ -52,30 +53,41 @@ void ExpressTextEdit::mouseMoveEvent(QMouseEvent *e)
     {
         std::string str;
         setToolTip(entityDescriptor->GenerateExpress(str));
+        if (QApplication::overrideCursor()==0)
+            QApplication::setOverrideCursor(QCursor(Qt::PointingHandCursor));
     }
     else if(typeDescriptor)
     {
         std::string str;
         setToolTip(typeDescriptor->GenerateExpress(str));
+        if (QApplication::overrideCursor()==0)
+            QApplication::setOverrideCursor(QCursor(Qt::PointingHandCursor));
     }
-    else setToolTip(QString());
+    else
+    {
+        setToolTip(QString());
+        QApplication::restoreOverrideCursor();
+    }
+}
 
-
+void ExpressTextEdit::mousePressEvent(QMouseEvent *e)
+{
+    if (e->modifiers()==Qt::ControlModifier)
+    {
+        QTextEdit::mousePressEvent(e);
+        navigate(e);
+    }
 }
 
 void ExpressTextEdit::mouseDoubleClickEvent(QMouseEvent *e)
 {
-    QTextCursor cursor = textCursor();
-    cursor.select(QTextCursor::WordUnderCursor);
-    QString wordUnderCursor = cursor.selectedText();
+    navigate(e);
+    QTextEdit::mouseDoubleClickEvent(e);
+}
 
-    const EntityDescriptor * entityDescriptor = m_Registry.FindEntity(wordUnderCursor.toAscii());
-    const TypeDescriptor * typeDescriptor = m_Registry.FindType(wordUnderCursor.toAscii());
-
-    if (entityDescriptor )
-        emit descriptorDoubleClicked(entityDescriptor);
-    else if(typeDescriptor)
-        emit descriptorDoubleClicked(typeDescriptor);
+void ExpressTextEdit::leaveEvent(QEvent *e)
+{
+    QApplication::restoreOverrideCursor();
 }
 
 void ExpressTextEdit::setDescriptor(const TypeDescriptor *typeDescriptor)
@@ -87,5 +99,20 @@ void ExpressTextEdit::setDescriptor(const TypeDescriptor *typeDescriptor)
         QString text(typeDescriptor->GenerateExpress(str));
         setPlainText(text);
     }
+}
+
+void ExpressTextEdit::navigate(QMouseEvent *e)
+{
+    // QTextCursor cursor = textCursor();
+    QTextCursor cursor = cursorForPosition(e->pos());
+    cursor.select(QTextCursor::WordUnderCursor);
+    QString wordUnderCursor = cursor.selectedText();
+
+    const EntityDescriptor * entityDescriptor = m_Registry.FindEntity(wordUnderCursor.toAscii());
+    const TypeDescriptor * typeDescriptor = m_Registry.FindType(wordUnderCursor.toAscii());
+    if (entityDescriptor )
+        emit descriptorDoubleClicked(entityDescriptor);
+    else if(typeDescriptor)
+        emit descriptorDoubleClicked(typeDescriptor);
 }
 
