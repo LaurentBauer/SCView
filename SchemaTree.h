@@ -23,7 +23,9 @@
 #include <QTreeWidget>
 #include <QHash>
 #include <QString>
-#include <schema.h>
+class Registry;
+class TypeDescriptor;
+
 class QStringListModel;
 
 // EntityTypeList : actually is the EntityDescriptorList... should be renamed
@@ -40,7 +42,6 @@ signals:
 public slots:
     void findSelection();
     void select( const TypeDescriptor *td);
-    const QString getSchemaName();
 
 private:
     Registry &m_Registry;

@@ -19,6 +19,7 @@
 
 #include "ExpressTextEdit.h"
 #include "ExpressSyntaxHighlighter.h"
+#include <Registry.h>
 #include <ExpDict.h>
 #include <QMouseEvent>
 #include <QApplication>

@@ -19,6 +19,8 @@
 
 #include "SchemaTree.h"
 #include <QStringListModel>
+#include <schema.h>
+
 #include <iostream>
 using namespace std;
 
@@ -39,7 +41,8 @@ SchemaTree::SchemaTree(Registry &registry, QWidget *parent)
     setAlternatingRowColors(true);
     setHeaderHidden(true);
 
-    // Root : The Schema (only one yet)
+    // Root : The Schema
+    m_Registry.ResetSchemas();
     const Schema * schema = m_Registry.NextSchema();
     QTreeWidgetItem * rootItem = new QTreeWidgetItem (this);
     rootItem->setText(0, schema->Name());
@@ -122,10 +125,3 @@ void SchemaTree::select(const TypeDescriptor *td)
     blockSignals(false);
 }
 
-const QString SchemaTree::getSchemaName() {
-    QString str;
-    m_Registry.ResetSchemas();
-    const Schema * sc = m_Registry.NextSchema();
-    str = sc->Name();
-    return str;
-}

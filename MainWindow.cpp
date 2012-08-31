@@ -48,7 +48,11 @@ MainWindow::MainWindow(QWidget *parent)
     , m_SearchLineEdit(0)
 {
     ui->setupUi(this);
-    QString title = QApplication::applicationName()+ ": " + m_SchemaTree->getSchemaName();
+
+
+    m_Registry.ResetSchemas();
+    const Schema * sc = m_Registry.NextSchema();
+    QString title = QApplication::applicationName()+ ": " + QString(sc->Name());
     setWindowTitle( title );
     buildView();
     setCentralWidget(m_ExpressGView);

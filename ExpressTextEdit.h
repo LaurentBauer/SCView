@@ -21,8 +21,8 @@
 #define EXPRESSTEXTEDIT_H
 
 #include <QTextEdit>
-#include <schema.h>
 
+class Registry;
 class EntityDescriptor;
 class TypeDescriptor;
 class ExpressSyntaxHighlighter;

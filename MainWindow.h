@@ -22,7 +22,8 @@
 
 #include <QMainWindow>
 extern void SchemaInit( class Registry & );
-#include <schema.h>
+#include <Registry.h>
+class TypeDescriptor;
 
 class SCLDockWidget;
 class SchemaTree;
