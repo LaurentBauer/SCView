@@ -19,7 +19,8 @@
 
 #include "SchemaTree.h"
 #include <QStringListModel>
-#include <schema.h>
+#include <ExpDict.h>
+#include <Registry.h>
 
 #include <iostream>
 using namespace std;
