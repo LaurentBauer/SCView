@@ -33,7 +33,7 @@ class SchemaTree : public QTreeWidget
 {
     Q_OBJECT
 public:
-    explicit SchemaTree(Registry& registry, QWidget *parent = 0);
+    explicit SchemaTree(Registry * registry, QWidget *parent = 0);
     void fillStringListModel(QStringListModel * model);
 
 signals:
@@ -44,7 +44,7 @@ public slots:
     void select( const TypeDescriptor *td);
 
 private:
-    Registry &m_Registry;
+    Registry * m_Registry;
     QHash <const void*, QTreeWidgetItem*> m_DescriptorToItem;
     QIcon m_EntityIcon;
     QIcon m_TypeIcon;

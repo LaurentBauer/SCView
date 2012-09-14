@@ -31,7 +31,7 @@ enum itemType {
     };
 
 
-SchemaTree::SchemaTree(Registry &registry, QWidget *parent)
+SchemaTree::SchemaTree(Registry *registry, QWidget *parent)
     : QTreeWidget(parent)
     , m_Registry( registry )
     , m_EntityIcon(":/Entity")
@@ -43,8 +43,8 @@ SchemaTree::SchemaTree(Registry &registry, QWidget *parent)
     setHeaderHidden(true);
 
     // Root : The Schema
-    m_Registry.ResetSchemas();
-    const Schema * schema = m_Registry.NextSchema();
+    m_Registry->ResetSchemas();
+    const Schema * schema = m_Registry->NextSchema();
     QTreeWidgetItem * rootItem = new QTreeWidgetItem (this);
     rootItem->setText(0, schema->Name());
     rootItem->setIcon(0, QIcon(":/Schema"));
@@ -57,7 +57,7 @@ SchemaTree::SchemaTree(Registry &registry, QWidget *parent)
     entitiesItem->setIcon(0, m_EntityIcon);
     // all entities
     const EntityDescriptor * entityDescriptor;
-    while ( (entityDescriptor= m_Registry.NextEntity() ) )
+    while ( (entityDescriptor= m_Registry->NextEntity() ) )
     {
         QTreeWidgetItem * entityItem = new QTreeWidgetItem(entitiesItem, EntityDescriptorItemType);
         entityItem->setText(0,entityDescriptor->Name());
@@ -74,7 +74,7 @@ SchemaTree::SchemaTree(Registry &registry, QWidget *parent)
     typesItem->setIcon(0, m_TypeIcon);
     // all types
     const TypeDescriptor * typeDescriptor;
-    while ( (typeDescriptor= m_Registry.NextType() ) )
+    while ( (typeDescriptor= m_Registry->NextType() ) )
     {
         QTreeWidgetItem * typeItem = new QTreeWidgetItem(typesItem, TypeDescriptorItemType);
         typeItem->setText(0,typeDescriptor->Name());
