@@ -19,11 +19,11 @@
 
 #include "ui_MainWindow.h"
 #include "MainWindow.h"
-#include "SCLDockWidget.h"
-#include "ExpressViewDockWidget.h"
+#include "SchemaTreeDockWidget.h"
+#include "textView/ExpressViewDockWidget.h"
+#include "textView/ExpressTextEdit.h"
 #include "SchemaTree.h"
 #include "expressg/ExpressGView.h"
-#include "ExpressTextEdit.h"
 #include "NavigateCommand.h"
 #include <QUndoStack>
 #include <QToolButton>
@@ -40,9 +40,9 @@ MainWindow::MainWindow(QWidget *parent)
     , m_Registry( SchemaInit )
     , m_Current(0)
     , m_SchemaTree ( new SchemaTree(m_Registry) )
-    , m_SCLDockWidget (new SCLDockWidget(m_SchemaTree, this) )
+    , m_SchemaTreeDockWidget (new SchemaTreeDockWidget(m_SchemaTree, this) )
     , m_ExpressViewDockWidget( new ExpressViewDockWidget(this))
-    , m_ExpressTextEdit(new ExpressTextEdit(m_Registry, m_ExpressViewDockWidget))
+    , m_ExpressTextEdit(new ExpressTextEdit(&m_Registry, m_ExpressViewDockWidget))
     , m_ExpressGView (new ExpressGView(this))
     , m_StringListModel(new QStringListModel())
     , m_SearchLineEdit(0)
@@ -65,9 +65,6 @@ MainWindow::MainWindow(QWidget *parent)
             , this, SLOT(setDescriptorCommand(const TypeDescriptor*)));
 
     connect(ui->actionFind, SIGNAL(triggered()), this, SLOT (startSearch()));
-
-    m_ExpressTextEdit->fillHighlighterWithTypes( typeList());
-    m_ExpressTextEdit->fillHighlighterWithEntities( entityList());
 
     QAction * undoAction = m_UndoStack->createUndoAction(this);
     QAction * redoAction = m_UndoStack->createRedoAction(this);
@@ -142,8 +139,8 @@ void MainWindow::setDescriptorCommand(const TypeDescriptor *descriptor)
 
 void MainWindow::buildView()
 {
-    addDockWidget(Qt::LeftDockWidgetArea, m_SCLDockWidget);
-    ui->menuWindows->addAction(m_SCLDockWidget->toggleViewAction());
+    addDockWidget(Qt::LeftDockWidgetArea, m_SchemaTreeDockWidget);
+    ui->menuWindows->addAction(m_SchemaTreeDockWidget->toggleViewAction());
 
     m_ExpressViewDockWidget->setWidget(m_ExpressTextEdit);
     addDockWidget(Qt::LeftDockWidgetArea, m_ExpressViewDockWidget);

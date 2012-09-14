@@ -34,35 +34,35 @@ SOURCES += main.cpp\
     EntityDescriptorWidget.cpp \
     manhattanstyle.cpp \
     styleanimator.cpp \
-    SCLDockWidget.cpp \
     expressg/ExpressGView.cpp \
     expressg/ExpressGScene.cpp \
     expressg/EntityItem.cpp \
     expressg/TypeItem.cpp \
     expressg/LinkItem.cpp \
     expressg/ExpressgRectItem.cpp \
-    ExpressViewDockWidget.cpp \
-    ExpressTextEdit.cpp \
-    ExpressSyntaxHighlighter.cpp \
+    textView/ExpressViewDockWidget.cpp \
+    textView/ExpressTextEdit.cpp \
+    textView/ExpressSyntaxHighlighter.cpp \
     SchemaTree.cpp \
-    NavigateCommand.cpp
+    NavigateCommand.cpp \
+    SchemaTreeDockWidget.cpp
 
 HEADERS  += MainWindow.h \
     EntityDescriptorWidget.h \
     manhattanstyle.h \
     styleanimator.h \
-    SCLDockWidget.h \
     expressg/ExpressGView.h \
     expressg/ExpressGScene.h \
     expressg/EntityItem.h \
     expressg/TypeItem.h \
     expressg/LinkItem.h \
     expressg/ExpressgRectItem.h \
-    ExpressViewDockWidget.h \
-    ExpressTextEdit.h \
-    ExpressSyntaxHighlighter.h \
+    textView/ExpressViewDockWidget.h \
+    textView/ExpressTextEdit.h \
+    textView/ExpressSyntaxHighlighter.h \
     SchemaTree.h \
-    NavigateCommand.h
+    NavigateCommand.h \
+    SchemaTreeDockWidget.h
 
 FORMS    += MainWindow.ui \
     EntityDescriptorWidget.ui

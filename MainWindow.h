@@ -25,7 +25,7 @@ extern void SchemaInit( class Registry & );
 #include <Registry.h>
 class TypeDescriptor;
 
-class SCLDockWidget;
+class SchemaTreeDockWidget;
 class SchemaTree;
 class EntityDescriptorWidget;
 class ExpressGView;
@@ -64,7 +64,7 @@ private:
     Registry m_Registry;
     const TypeDescriptor * m_Current;
     SchemaTree * m_SchemaTree;
-    SCLDockWidget * m_SCLDockWidget;
+    SchemaTreeDockWidget * m_SchemaTreeDockWidget;
     ExpressViewDockWidget * m_ExpressViewDockWidget;
     ExpressTextEdit * m_ExpressTextEdit;
     ExpressGView * m_ExpressGView;
