@@ -3,7 +3,7 @@
 SCView is a Step Express data viewer<br/>
 SCView stands for [StepCode](http://stepcode.org/mw/index.php?title=STEPcode) View <br/>
 
-<img src="https://github.com/LaurentBauer/SCView/wiki/img/SCLView.png">
+[![](https://github.com/LaurentBauer/SCView/wiki/img/SCLView.png)](https://youtu.be/ig9xq1H828M)
 
 ## Features
 
