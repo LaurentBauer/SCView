@@ -23,6 +23,7 @@ SCView delivers 3 views of the same model
 
 ### Tree View
 <img src="https://github.com/LaurentBauer/SCView/wiki/img/Tree_001.png">
+
 * The top Item represents the schema. It has two children:
 * The list of entities
 * The list of types
@@ -35,6 +36,7 @@ Selecting one entity or type in the tree will display the selection in the two o
 
 ### The Express-G view
 <img src="https://github.com/LaurentBauer/SCView/wiki/img/EG_010.png">
+
 * Delivers a diagram representation of the currently selected Entity <br/>
 * The composition structure is partially implemented
 * The inheritance view is NOT implemented
@@ -45,6 +47,7 @@ Double clicking one entity or type will display the selection in the two other v
 
 ### The Express Text Editor
 <img src="https://github.com/LaurentBauer/SCView/wiki/img/textView.png">
+
 * Displays the selected entity/type in the Express format 
 * Has a syntax highlighter 
 * Is Read only : no edition features !
